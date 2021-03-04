@@ -7,4 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!-- added colors -->
+    <color name="orange_light">#ECB390</color>
+    <color name="green_light">#D4E2D4</color>
+    <color name="grey">#CBCBCB</color>
 </resources>

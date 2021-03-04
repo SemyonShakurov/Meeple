@@ -3,10 +3,10 @@ package com.mscorp.meeple
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class AuthenticationActivity : AppCompatActivity() {
+class AuthorizationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_authentication)
+        setContentView(R.layout.activity_authorization)
     }
 }
