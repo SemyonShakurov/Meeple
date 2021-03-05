@@ -46,7 +46,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="@string/btn_sigh_in"
-        android:theme="@style/MeepleButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
