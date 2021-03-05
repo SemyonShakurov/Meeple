@@ -23,6 +23,5 @@ class StartActivity : AppCompatActivity() {
             val intent = Intent(this, AuthorizationActivity::class.java)
             startActivity(intent)
         }
-
     }
 }
