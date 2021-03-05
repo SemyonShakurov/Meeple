@@ -11,4 +11,5 @@
     <color name="orange_light">#ECB390</color>
     <color name="green_light">#D4E2D4</color>
     <color name="grey">#CBCBCB</color>
+    <color name="orange_main"> #DF7861 </color>
 </resources>
