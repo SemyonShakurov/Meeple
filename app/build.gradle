@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id "io.spring.dependency-management" version "1.0.6.RELEASE"
 }
 
 android {
@@ -32,6 +33,12 @@ android {
     }
 }
 
+dependencyManagement {
+    imports {
+        mavenBom 'org.springframework.security:spring-security-bom:5.4.5'
+    }
+}
+
 dependencies {
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -46,5 +53,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
-
+    // Spring
+    implementation "org.springframework.boot:spring-boot-starter-security"
+    implementation "org.springframework.security:spring-security-web"
+    implementation "org.springframework.security:spring-security-config"
 }

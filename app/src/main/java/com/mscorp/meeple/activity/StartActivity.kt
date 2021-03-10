@@ -11,8 +11,8 @@ class StartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
 
-        val buttonRegistration = findViewById<Button>(R.id.buttonStartRegistrarion);
-        val buttonRSignIn = findViewById<Button>(R.id.buttonStartSingIn);
+        val buttonRegistration = findViewById<Button>(R.id.buttonStartRegistrarion)
+        val buttonRSignIn = findViewById<Button>(R.id.buttonStartSingIn)
 
         buttonRegistration.setOnClickListener {
             val intent = Intent(this, RegistrationActivity::class.java)
