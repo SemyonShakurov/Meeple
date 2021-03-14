@@ -1,6 +1,6 @@
 package com.mscorp.meeple.viewmodel
 
-class RegistrationViewModel {
+class RegistrationViewModel : BaseViewModel() {
 
 
 }

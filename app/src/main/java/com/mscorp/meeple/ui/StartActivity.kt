@@ -1,4 +1,4 @@
-package com.mscorp.meeple.activity
+package com.mscorp.meeple.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

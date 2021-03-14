@@ -3,5 +3,9 @@
     <string name="hint_password">Password</string>
     <string name="hint_email">Email</string>
     <string name="btn_sigh_in">Sign In</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_map">Карта</string>
+    <string name="title_events">События</string>
+    <string name="title_profile">Профиль</string>
     <string name="btn_register">Регистрация</string>
 </resources>

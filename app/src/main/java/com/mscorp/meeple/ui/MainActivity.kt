@@ -1,12 +1,12 @@
-package com.mscorp.meeple.activity
+package com.mscorp.meeple.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.mscorp.meeple.R
 
-class AuthorizationActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_authorization)
+        setContentView(R.layout.activity_main)
     }
 }
