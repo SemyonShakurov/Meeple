@@ -3,23 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_profile">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.mscorp.meeple.ui.MapFragment"
-        android:label="@string/title_map"
+        android:id="@+id/navigation_map"
+        android:name="com.mscorp.meeple.ui.main.MapFragment"
         tools:layout="@layout/fragment_map" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.mscorp.meeple.ui.EventsFragment"
-        android:label="@string/title_events"
-        tools:layout="@layout/fragment_events" />
+        android:id="@+id/navigation_events"
+        android:name="com.mscorp.meeple.ui.main.EventsFragment"
+        tools:layout="@layout/fragment_profile" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.mscorp.meeple.ui.ProfileFragment"
-        android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile" />
+        android:id="@+id/navigation_profile"
+        android:name="com.mscorp.meeple.ui.main.ProfileFragment"
+        tools:layout="@layout/fragment_events" />
+
 </navigation>

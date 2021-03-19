@@ -1,4 +1,4 @@
-package com.mscorp.meeple.viewmodel
+package com.mscorp.meeple.ui.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -7,7 +7,8 @@ import com.mscorp.meeple.model.User
 import com.mscorp.meeple.repository.LoginRepository
 import kotlinx.coroutines.launch
 
-class AuthorizationViewModel : BaseViewModel() {
+
+class LoginViewModel : BaseViewModel() {
 
     val loginResponse: MutableLiveData<Event<User>> = MutableLiveData()
     private val loginRepository = LoginRepository()

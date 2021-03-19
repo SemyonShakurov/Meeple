@@ -8,10 +8,7 @@ class LoginRepository : BaseRepository() {
         email: String,
         password: String
     ) = safeApiCall {
-        val res = api.login(email, password);
-        if ( res.email == "")
-            throw Exception("Email not found")
-        else
-            res
+        val res = api.login();
+        res
     }
 }

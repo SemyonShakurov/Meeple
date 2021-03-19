@@ -15,10 +15,9 @@ abstract class BaseRepository {
     suspend fun <T> safeApiCall(
         apiCall: suspend () -> T
     ) : Event<T>{
+        //Переходим корутину в паралдлельный поток
         return withContext(Dispatchers.IO){
             try {
-                delay(2000)
-
                 //Working version
                 Event.Success(apiCall.invoke())
             }
