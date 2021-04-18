@@ -1,8 +1,13 @@
 package com.mscorp.meeple.repository
 
-import java.lang.Exception
+class AuthRepository : BaseRepository() {
 
-class RegistrationRepository : BaseRepository() {
+    suspend fun login(
+        nickname: String,
+        password: String
+    ) = safeApiCall {
+        api.login(nickname, password)
+    }
 
     suspend fun register(
         email: String,
@@ -13,6 +18,4 @@ class RegistrationRepository : BaseRepository() {
         //TODO: Проверка данных
         res
     }
-
-
 }

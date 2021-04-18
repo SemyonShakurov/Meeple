@@ -1,14 +1,59 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Meeple" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Meeple" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/orange_main</item>
-        <item name="colorPrimaryVariant">#494949</item>
+        <item name="colorPrimaryVariant">@color/middle_gray</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorSecondary">@color/middle_gray</item>
+        <item name="colorSecondaryVariant">@color/middle_gray</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
     </style>
+
+
+    <style name="HeaderTextStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/header_color</item>
+        <item name="fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="SubtitleTextStyle">
+        <item name="android:textColor">@color/header_color</item>
+        <item name="fontFamily">@font/roboto_light</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="SecondHeaderTExtStyle">
+        <item name="android:textColor">@color/header_color</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">23sp</item>
+    </style>
+
+    <style name="TintTextStyle">
+        <item name="android:textColor">@color/middle_gray</item>
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="ButtonStyle">
+        <item name="backgroundColor">@color/orange_main</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_width">150dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="cornerRadius">50dp</item>
+    </style>
+
+    <style name="InputStyle">
+        <item name="android:paddingStart">50dp</item>
+        <item name="android:background">@drawable/custom_input</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">335dp</item>
+    </style>
+
+
 </resources>

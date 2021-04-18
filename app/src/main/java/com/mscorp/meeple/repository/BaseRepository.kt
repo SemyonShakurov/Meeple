@@ -1,12 +1,13 @@
 package com.mscorp.meeple.repository
 
+import com.google.gson.Gson
 import com.mscorp.meeple.api.ApiService
-import com.mscorp.meeple.api.Event
-import com.mscorp.meeple.model.User
+import com.mscorp.meeple.api.Request
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import org.json.JSONObject
 import retrofit2.HttpException
+import java.io.IOException
 
 abstract class BaseRepository {
 
@@ -14,23 +15,27 @@ abstract class BaseRepository {
 
     suspend fun <T> safeApiCall(
         apiCall: suspend () -> T
-    ) : Event<T>{
+    ) : Request<T> =
         //Переходим корутину в паралдлельный поток
-        return withContext(Dispatchers.IO){
+         withContext(Dispatchers.IO){
             try {
-                //Working version
-                Event.Success(apiCall.invoke())
+                val x = apiCall.invoke()
+                Request.Success(x)
             }
             catch (throwable: Throwable) {
                 when (throwable) {
                     is HttpException -> {
-                        Event.Failure(false, throwable.code(), throwable.response()?.errorBody())
+                        val mesJson = throwable.response()?.errorBody()?.string()
+                        var message = "Some problems"
+                        mesJson?.let {
+                            message = JSONObject(mesJson).getString("message")
+                        }
+                        Request.Failure(false, throwable.code(), message)
                     }
                     else -> {
-                        Event.Failure(true, null, null)
+                        Request.Failure(true, null, null)
                     }
                 }
             }
         }
-    }
 }

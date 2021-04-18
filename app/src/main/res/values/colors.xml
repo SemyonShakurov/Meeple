@@ -12,4 +12,8 @@
     <color name="green_light">#D4E2D4</color>
     <color name="grey">#CBCBCB</color>
     <color name="orange_main"> #DF7861 </color>
+    <color name="header_color">#282828</color>
+    <color name="middle_gray">#959595</color>
+    <color name="light_gray">#D0D0D0</color>
+
 </resources>

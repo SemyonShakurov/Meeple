@@ -2,15 +2,15 @@ package com.mscorp.meeple.ui.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.mscorp.meeple.api.Event
+import com.mscorp.meeple.api.Request
 import com.mscorp.meeple.model.User
-import com.mscorp.meeple.repository.RegistrationRepository
+import com.mscorp.meeple.repository.AuthRepository
 import kotlinx.coroutines.launch
 
 class RegistrationViewModel : BaseViewModel() {
 
-    val loginResponse: MutableLiveData<Event<User>> = MutableLiveData()
-    private val regRepository = RegistrationRepository()
+    val loginResponse: MutableLiveData<Request<User>> = MutableLiveData()
+    private val regRepository = AuthRepository()
 
     fun register(
         email: String,
@@ -18,7 +18,7 @@ class RegistrationViewModel : BaseViewModel() {
         password: String
     ){
         viewModelScope.launch{
-            loginResponse.value = Event.Loading
+            loginResponse.value = Request.Loading
             loginResponse.value = regRepository.register(email, username, password)
         }
     }

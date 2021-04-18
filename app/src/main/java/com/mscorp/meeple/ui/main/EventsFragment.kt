@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.mscorp.meeple.databinding.FragmentEventsBinding
+import kotlinx.coroutines.*
+import okhttp3.Dispatcher
 
 class EventsFragment : Fragment() {
 
@@ -19,6 +21,5 @@ class EventsFragment : Fragment() {
         binding = FragmentEventsBinding.inflate(inflater)
         return binding.root
     }
-
 
 }

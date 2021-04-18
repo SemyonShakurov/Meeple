@@ -1,12 +1,8 @@
-package com.mscorp.meeple.ui
+package com.mscorp.meeple.ui.login
 
-.login
-
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.mscorp.meeple.R
-import com.mscorp.meeple.ui.main.MenuActivity
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

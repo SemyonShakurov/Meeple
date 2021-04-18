@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.mscorp.meeple.api.Event
+import com.mscorp.meeple.api.Request
 import com.mscorp.meeple.databinding.FragmentRegistrationBinding
 import com.mscorp.meeple.ui.viewmodel.RegistrationViewModel
 
@@ -26,28 +26,35 @@ class RegistrationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.buttonRegister.setOnClickListener {
+
+        binding.buttonRegistration.setOnClickListener {
             viewModel.register(
-                binding.editTextRegEmail.text.toString(),
-                binding.editTextUsername.text.toString(),
-                binding.editTextRegPassword.text.toString()
+                binding.editTextUsername.text.trim().toString(),
+                binding.editTextEmail.text.trim().toString(),
+                binding.editTextConfirmPassword.text.trim().toString()
             )
+        }
+
+
+        binding.imageViewBack.setOnClickListener{
+            activity?.supportFragmentManager?. popBackStack()
+        }
+
+        binding.textViewHaveAccount.setOnClickListener {
+            activity?.supportFragmentManager?. popBackStack()
         }
 
         viewModel.loginResponse.observe(viewLifecycleOwner, {
             when(it){
-                is Event.Failure -> {
-                    Toast.makeText(context, "Problems", Toast.LENGTH_SHORT).show()
-                    binding.progressBarReg.visibility = View.INVISIBLE
+                is Request.Failure -> {
+                    Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
+                    binding.progressBarRegister.visibility = View.INVISIBLE
                 }
-                is Event.Success -> onLoginSuccess()
-                is Event.Loading -> binding.progressBarReg.visibility = View.VISIBLE
+                is Request.Success -> {
+                    binding.progressBarRegister.visibility = View.INVISIBLE
+                }
+                is Request.Loading -> binding.progressBarRegister.visibility = View.VISIBLE
             }
         })
     }
-
-    private fun onLoginSuccess(){
-        binding.progressBarReg.visibility = View.INVISIBLE
-    }
-
 }

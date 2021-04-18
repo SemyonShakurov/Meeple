@@ -1,12 +1,13 @@
 package com.mscorp.meeple.model
 
-data class User(
+import java.io.Serializable
+
+data class User (
     val id: Int,
-    //var email: String,
-    var username: String
-   /* var password: String,
-    var photo: String,
-    val games: MutableList<BoardGame>,
-    val friends: MutableList<User>,
-    val events: MutableList<Event>*/
-)
+    val email: String,
+    val nickname: String,
+    var photoUrl:  String?,
+    val games: HashMap<Int, BoardGame>?,
+    val friends: HashMap<Int, User>?,
+    val events: HashMap<Int, Event>?
+): Serializable

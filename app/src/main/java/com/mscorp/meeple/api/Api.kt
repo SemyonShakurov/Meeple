@@ -1,18 +1,13 @@
 package com.mscorp.meeple.api
 
 import com.mscorp.meeple.model.User
-import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
-import java.net.UnknownServiceException
+import retrofit2.http.*
 
 interface Api {
-    @GET("user")
+    @GET("login/getp")
     suspend fun login(
-/*        @Field("email") email: String,
-        @Field("password") password: String*/
+        @Query("nickname") email: String,
+        @Query("password") password: String
     ) : User
 
     @GET("user")
@@ -21,11 +16,11 @@ interface Api {
     ) : User
 
     @FormUrlEncoded
-    @POST("user")
+    @POST("register/add")
     suspend fun register(
+        @Field("nickname") nickname: String,
         @Field("email") email: String,
-        @Field("password") password: String,
-        @Field("nickname") nickname: String
+        @Field("password") password: String
     ) : User
 
 }
