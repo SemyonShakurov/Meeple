@@ -24,10 +24,12 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".ui.main.MenuActivity">
+        <activity android:name=".ui.main.MenuActivity"
+            android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name=".ui.login.LoginActivity" tools:ignore="Instantiatable">
+        <activity android:name=".ui.login.LoginActivity" tools:ignore="Instantiatable"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

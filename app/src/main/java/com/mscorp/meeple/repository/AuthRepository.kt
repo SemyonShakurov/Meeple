@@ -14,7 +14,7 @@ class AuthRepository : BaseRepository() {
         username: String,
         password: String
     ) = safeApiCall {
-        val res = api.register(email, username, password);
+        val res = api.register(email, username, password)
         //TODO: Проверка данных
         res
     }

@@ -4,7 +4,7 @@ import com.mscorp.meeple.model.User
 import retrofit2.http.*
 
 interface Api {
-    @GET("login/getp")
+    @GET("login/get")
     suspend fun login(
         @Query("nickname") email: String,
         @Query("password") password: String

@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="5dp">
 
     <ImageView
         android:id="@+id/WelcomeImageView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_height="185dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/WelcomeHeaderTextView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/welcome_image" />
@@ -20,9 +22,10 @@
         style="@style/HeaderTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
         android:text="Добро пожаловать\n в Meeple!"
+        app:layout_constraintBottom_toTopOf="@+id/subHeaderTextView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/WelcomeImageView" />
 
@@ -31,18 +34,19 @@
         style="@style/TintTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
         android:text="Введите имя пользователя и пароль, \nчтобы войти"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/WelcomeHeaderTextView" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45" />
 
     <EditText
         android:id="@+id/PasswordEditText"
         style="@style/InputStyle"
         android:layout_width="335dp"
         android:layout_height="50dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="29dp"
         android:background="@drawable/custom_input"
         android:ems="10"
         android:hint="@string/password"
@@ -69,10 +73,9 @@
         style="@style/TintTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="40dp"
         android:text="@string/forget_password"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/loginButton"
+        app:layout_constraintEnd_toEndOf="@+id/PasswordEditText"
         app:layout_constraintTop_toBottomOf="@+id/PasswordEditText" />
 
     <Button
@@ -89,7 +92,7 @@
         style="@style/TintTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="20dp"
         android:text="@string/no_account"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +103,6 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="26dp"
         android:layout_height="36dp"
-        android:layout_marginTop="9dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/loginButton"
         app:layout_constraintEnd_toEndOf="parent"
