@@ -4,7 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiService {
-    private const val BASE_URL = "http://meeple-cloud.ru:8080/";
+    private const val BASE_URL = "http://meeple-cloud.ru:8080/"
 
     fun getApi() : Api{
         return Retrofit.Builder()

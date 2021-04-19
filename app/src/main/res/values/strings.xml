@@ -27,4 +27,8 @@
     <string name="create">Создать</string>
     <string name="login">Войти</string>
     <string name="forget_password">Забыли пароль?</string>
+    <string name="add_event">Добавить событие</string>
+    <string name="title">Название события</string>
+    <string name="people_count">Количество участников</string>
+    <string name="people_level">Уровень игроков</string>
 </resources>
