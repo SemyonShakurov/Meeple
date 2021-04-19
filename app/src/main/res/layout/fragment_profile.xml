@@ -8,7 +8,7 @@
     android:background="@drawable/main_background">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textViewProfile"
         style="@style/HeaderTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,4 +17,187 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/roundedImageViewAvatar"
+        android:layout_width="126dp"
+        android:layout_height="126dp"
+        android:layout_marginTop="32dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/profile_test"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewProfile"
+        app:riv_border_color="@color/orange_main"
+        app:riv_border_width="2dip"
+        app:riv_corner_radius="50dp"
+        app:riv_mutate_background="true" />
+
+    <TextView
+        android:id="@+id/textViewUsername"
+        style="@style/HeaderTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="TextView"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/roundedImageViewAvatar" />
+
+    <TextView
+        android:id="@+id/textViewNickname"
+        style="@style/SubtitleTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewUsername" />
+
+    <ImageView
+        android:id="@+id/imageViewSignOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="26dp"
+        android:src="@drawable/ic_sign_out"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewProfile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewProfile" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewFriends"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="20dp"
+        app:cardCornerRadius="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNickname">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageViewFriendsInfo"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="25dp"
+                android:padding="6dp"
+                android:src="@drawable/ic_get_more_info"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewFriends"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageViewFriends" />
+
+            <ImageView
+                android:id="@+id/imageViewFriends"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="27dp"
+                android:layout_marginTop="19dp"
+                android:src="@drawable/ic_friends"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewFriends"
+                style="@style/SecondHeaderTExtStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="Мои друзья"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewFriends"
+                app:layout_constraintStart_toEndOf="@+id/imageViewFriends"
+                app:layout_constraintTop_toTopOf="@+id/imageViewFriends" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerFiends"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewFriends" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewGames"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="20dp"
+        app:cardCornerRadius="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewFriends">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageViewGamesInfo"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="25dp"
+                android:padding="6dp"
+                android:src="@drawable/ic_get_more_info"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewGames"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewGames" />
+
+            <ImageView
+                android:id="@+id/imageViewGames"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="27dp"
+                android:layout_marginTop="19dp"
+                android:src="@drawable/ic_dice"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewGames"
+                style="@style/SecondHeaderTExtStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="Мои игры"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewGames"
+                app:layout_constraintStart_toEndOf="@+id/imageViewGames"
+                app:layout_constraintTop_toTopOf="@+id/imageViewGames" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerGames"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewGames" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

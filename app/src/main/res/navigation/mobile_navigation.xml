@@ -11,13 +11,64 @@
         tools:layout="@layout/fragment_map" />
 
     <fragment
-        android:id="@+id/navigation_events"
-        android:name="com.mscorp.meeple.ui.main.EventsFragment"
-        tools:layout="@layout/fragment_profile" />
-
-    <fragment
         android:id="@+id/navigation_profile"
         android:name="com.mscorp.meeple.ui.main.ProfileFragment"
-        tools:layout="@layout/fragment_events" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_events"
+            app:destination="@id/navigation_events" />
+        <action
+            android:id="@+id/action_navigation_profile_to_myGamesFragment"
+            app:destination="@id/myGamesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_events"
+        android:name="com.mscorp.meeple.ui.main.EventsFragment"
+        tools:layout="@layout/fragment_events" >
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_map"
+            app:destination="@id/navigation_map" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.mscorp.meeple.ui.login.RegistrationFragment"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration" >
+        <action
+            android:id="@+id/action_registrationFragment_to_startFragment"
+            app:destination="@id/startFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="com.mscorp.meeple.ui.login.StartFragment"
+        android:label="StartFragment" >
+        <action
+            android:id="@+id/action_startFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myGamesFragment"
+        android:name="com.mscorp.meeple.ui.main.details.MyGamesFragment"
+        android:label="fragment_my_games"
+        tools:layout="@layout/fragment_my_games" >
+        <action
+            android:id="@+id/action_myGamesFragment_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
+        <action
+            android:id="@+id/action_myGamesFragment_to_addNewGameFragment"
+            app:destination="@id/addNewGameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewGameFragment"
+        android:name="com.mscorp.meeple.ui.main.details.AddNewGameFragment"
+        android:label="fragment_add_new_game"
+        tools:layout="@layout/fragment_add_new_game" >
+        <action
+            android:id="@+id/action_addNewGameFragment_to_myGamesFragment"
+            app:destination="@id/myGamesFragment" />
+    </fragment>
 
 </navigation>

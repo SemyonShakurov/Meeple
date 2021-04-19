@@ -111,7 +111,7 @@
         android:layout_height="45dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:src="@drawable/ic_round_west_24"
+        android:src="@drawable/ic__go_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
