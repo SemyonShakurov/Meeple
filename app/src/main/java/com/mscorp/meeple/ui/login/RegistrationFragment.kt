@@ -1,5 +1,6 @@
 package com.mscorp.meeple.ui.login
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,13 +9,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.mscorp.meeple.api.Request
 import com.mscorp.meeple.databinding.FragmentRegistrationBinding
+import com.mscorp.meeple.ui.main.MenuActivity
 import com.mscorp.meeple.ui.viewmodel.RegistrationViewModel
 
 
 class RegistrationFragment : Fragment() {
 
     private lateinit var binding: FragmentRegistrationBinding
-    val viewModel = RegistrationViewModel()
+    private val viewModel = RegistrationViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +37,6 @@ class RegistrationFragment : Fragment() {
             )
         }
 
-
         binding.imageViewBack.setOnClickListener{
             activity?.supportFragmentManager?. popBackStack()
         }
@@ -52,6 +53,10 @@ class RegistrationFragment : Fragment() {
                 }
                 is Request.Success -> {
                     binding.progressBarRegister.visibility = View.INVISIBLE
+                    val intent = Intent(context, MenuActivity::class.java)
+                    intent.putExtra("user", it.value)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    startActivity(intent)
                 }
                 is Request.Loading -> binding.progressBarRegister.visibility = View.VISIBLE
             }
