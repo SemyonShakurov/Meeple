@@ -23,6 +23,9 @@ class EventsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentEventsBinding.inflate(inflater)
+        binding.imageAddEvent.setOnClickListener {
+
+        }
         return binding.root
     }
 

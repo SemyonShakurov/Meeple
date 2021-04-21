@@ -4,6 +4,7 @@ import java.util.*
 
 data class Event(
     val id: Int,
+    val title: String,
     val cords: Pair<Double, Double>,
     val count: Int,
     val games: MutableList<BoardGame>,
