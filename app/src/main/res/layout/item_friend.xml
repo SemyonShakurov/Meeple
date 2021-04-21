@@ -6,9 +6,9 @@
     android:layout_height="wrap_content">
 
     <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/roundedImageViewAvatar"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:id="@+id/roundedImageViewItemAvatar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginTop="7dp"
         android:layout_marginBottom="7dp"
         android:scaleType="fitCenter"
@@ -20,29 +20,31 @@
         app:riv_mutate_background="true" />
 
     <TextView
-        android:id="@+id/textViewNameFriend"
-        style="@style/SecondHeaderTExtStyle"
+        android:id="@+id/textViewItemNameFriend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/roundedImageViewAvatar"
-        app:layout_constraintTop_toTopOf="@+id/roundedImageViewAvatar" />
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/roboto"
+        android:text="Анна Лебедева"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/roundedImageViewItemAvatar"
+        app:layout_constraintTop_toTopOf="@+id/roundedImageViewItemAvatar" />
 
     <TextView
-        android:id="@+id/textViewFriendNickname"
+        android:id="@+id/textViewItemFriendNickname"
         style="@style/SubtitleTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:text="TextView"
+        android:text="@lebedeva01"
         android:textColor="@color/orange_main"
-        app:layout_constraintStart_toStartOf="@+id/textViewNameFriend"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNameFriend" />
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/textViewItemNameFriend"
+        app:layout_constraintTop_toBottomOf="@+id/textViewItemNameFriend" />
 
     <ImageView
-        android:id="@+id/imageViewAddDeleteFriend"
+        android:id="@+id/imageViewItemAddDeleteFriend"
         android:layout_width="23dp"
         android:layout_height="20dp"
         android:layout_marginEnd="20dp"

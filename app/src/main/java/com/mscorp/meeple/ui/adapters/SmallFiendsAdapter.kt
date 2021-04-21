@@ -1,4 +1,4 @@
-package com.mscorp.meeple.adapters
+package com.mscorp.meeple.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +10,7 @@ import com.mscorp.meeple.R
 import com.mscorp.meeple.model.User
 import com.squareup.picasso.Picasso
 
-class SmallFiendsAdapter(private val dataSet: Array<User>)
+class SmallFiendsAdapter(private val dataSet: List<User>)
     : RecyclerView.Adapter<SmallFiendsAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -29,6 +29,5 @@ class SmallFiendsAdapter(private val dataSet: Array<User>)
     }
 
     override fun getItemCount() = dataSet.size
-
 
 }

@@ -1,15 +1,15 @@
 package com.mscorp.meeple.repository
 
-import com.google.gson.Gson
+import android.content.Context
 import com.mscorp.meeple.api.ApiService
-import com.mscorp.meeple.api.Request
+import com.mscorp.meeple.db.GamesDatabase
+import com.mscorp.meeple.model.Request
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import retrofit2.HttpException
-import java.io.IOException
 
-abstract class BaseRepository {
+abstract class BaseRepository() {
 
     val api = ApiService.getApi()
 
@@ -33,7 +33,7 @@ abstract class BaseRepository {
                         Request.Failure(false, throwable.code(), message)
                     }
                     else -> {
-                        Request.Failure(true, null, null)
+                        Request.Failure(true, null, "Ошибка подключения")
                     }
                 }
             }

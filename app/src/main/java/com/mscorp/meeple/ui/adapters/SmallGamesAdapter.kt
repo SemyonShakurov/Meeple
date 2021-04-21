@@ -1,4 +1,4 @@
-package com.mscorp.meeple.adapters
+package com.mscorp.meeple.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -41,6 +41,5 @@ class SmallGamesAdapter(private val dataSet: Array<BoardGame>, val type: TypeOfG
     }
 
     override fun getItemCount() = dataSet.size
-
 
 }

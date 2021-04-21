@@ -6,18 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mscorp.meeple.R
-import com.mscorp.meeple.adapters.SmallFiendsAdapter
-import com.mscorp.meeple.adapters.SmallGamesAdapter
 import com.mscorp.meeple.databinding.FragmentProfileBinding
 import com.mscorp.meeple.model.BoardGame
 import com.mscorp.meeple.model.TypeOfGameList
 import com.mscorp.meeple.model.User
+import com.mscorp.meeple.model.UserFriends
+import com.mscorp.meeple.ui.adapters.SmallFiendsAdapter
+import com.mscorp.meeple.ui.adapters.SmallGamesAdapter
 import com.mscorp.meeple.ui.viewmodel.UserViewModel
 
 
@@ -30,6 +32,7 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -38,98 +41,59 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         try {
             viewModel.user = requireArguments().get("user") as User
+            viewModel.userFriends = requireArguments().get("friends") as UserFriends
         } catch (ignored: Exception) {
         }
-
 
         setupAdapters()
         setupOnCLickListeners()
     }
 
-    fun setupOnCLickListeners(){
+    fun setupOnCLickListeners() {
 
-        binding.imageViewGamesInfo.setOnClickListener{
-            findNavController().navigate(R.id.myGamesFragment)
+        binding.imageViewGamesInfo.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_profile_to_myGamesFragment)
+        }
+
+        binding.imageViewFriendsInfo.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_profile_to_myFriendsFragment)
         }
     }
 
-    fun setupAdapters(){
-        binding.textViewUsername.text = viewModel.user.name
+    fun setupAdapters() {
+        var name = viewModel.user.name
+        name = name.substring(0, name.indexOf(' ')) + "\n" + name.substring(
+            name.indexOf(' '),
+            name.length
+        )
+        binding.textViewUsername.text = name
         binding.textViewNickname.text = viewModel.user.nickname
 
-        val adapter = SmallFiendsAdapter(
-            arrayOf(
-                User(
-                    1,
-                    "",
-                    "",
-                    "Чорт Паганый",
-                    "https://image.flaticon.com/icons/png/512/168/168726.png",
-                    null,
-                    null,
-                    null
-                ),
-                User(
-                    1,
-                    "",
-                    "",
-                    "Панк Фёдоров",
-                    "https://image.flaticon.com/icons/png/512/168/168732.png",
-                    null,
-                    null,
-                    null
-                ),
-                User(
-                    1,
-                    "",
-                    "",
-                    "Инста Самка",
-                    "https://image.flaticon.com/icons/png/512/168/168719.png",
-                    null,
-                    null,
-                    null
-                )
-            )
-        )
+        if (viewModel.userFriends.friends.isEmpty())
+            binding.textViewFriendsNotFound.visibility = View.VISIBLE
+        else
+            binding.textViewFriendsNotFound.visibility = View.INVISIBLE
 
-        fun RecyclerView.addItemDecorationWithoutLastDivider() {
+        binding.textViewGamesNotFound.visibility = View.VISIBLE
 
-            if (layoutManager !is LinearLayoutManager)
-                return
+        val adapter = SmallFiendsAdapter(viewModel.userFriends.friends.take(3))
 
-            addItemDecoration(object :
-                DividerItemDecoration(context, (layoutManager as LinearLayoutManager).orientation) {
-
-                override fun getItemOffsets( outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-                    super.getItemOffsets(outRect, view, parent, state)
-
-                    if (parent.getChildAdapterPosition(view) == state.itemCount - 1)
-                        outRect.setEmpty()
-                    else
-                        super.getItemOffsets(outRect, view, parent, state)
-                }
-            })
-        }
-
-
-        binding.recyclerFiends.addItemDecorationWithoutLastDivider()
+        val itemDecor = DividerItemDecoration(context, 1)
+        binding.recyclerFiends.addItemDecoration(itemDecor)
         binding.recyclerFiends.layoutManager = LinearLayoutManager(this.context)
         binding.recyclerFiends.adapter = adapter
 
+        if (viewModel.user.games.isNullOrEmpty())
+            binding.textViewGamesNotFound.visibility = View.VISIBLE
+        else
+            binding.textViewGamesNotFound.visibility = View.INVISIBLE
+
         val adapterGames = SmallGamesAdapter(
-            arrayOf(
-                BoardGame(1, "Монополия", "", 4, 2, "", ""),
-                BoardGame(1, "Дженга", "", 4, 2, "", ""),
-                BoardGame(1, "UNO", "", 4, 2, "", ""),
-            ), TypeOfGameList.SMALL
+            arrayOf(), TypeOfGameList.SMALL
         )
 
-
-        binding.recyclerGames.addItemDecorationWithoutLastDivider()
+        binding.recyclerGames.addItemDecoration(itemDecor)
         binding.recyclerGames.layoutManager = LinearLayoutManager(this.context)
         binding.recyclerGames.adapter = adapterGames
     }
-
-
-
 }

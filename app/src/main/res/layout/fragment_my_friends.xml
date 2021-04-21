@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/main_background"
     tools:context=".ui.main.details.MyFriendsFragment">
 
     <TextView
@@ -12,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:text="Мои друзья"
+        android:text="@string/my_friends"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,7 +23,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginEnd="21dp"
-        android:src="@drawable/ic__add_new_game"
+        android:src="@drawable/ic__add_new_friend"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewBackFromMyFriends"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageViewBackFromMyFriends" />
@@ -39,7 +40,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewMyFRinds"
+        android:id="@+id/recyclerViewMyFriends"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"

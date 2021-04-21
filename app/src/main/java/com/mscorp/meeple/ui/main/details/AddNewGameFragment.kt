@@ -10,9 +10,8 @@ import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mscorp.meeple.R
-import com.mscorp.meeple.adapters.SmallGamesAdapter
+import com.mscorp.meeple.ui.adapters.SmallGamesAdapter
 import com.mscorp.meeple.databinding.FragmentAddNewGameBinding
-import com.mscorp.meeple.databinding.FragmentMyGamesBinding
 import com.mscorp.meeple.model.BoardGame
 import com.mscorp.meeple.model.TypeOfGameList
 import com.mscorp.meeple.ui.viewmodel.UserViewModel
@@ -30,12 +29,11 @@ class AddNewGameFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.imageViewBackFromAddNewGame.setOnClickListener{
-            findNavController().navigateUp()
+            findNavController().navigate(R.id.action_addNewGameFragment_to_myGamesFragment)
         }
 
         val adapterGames = SmallGamesAdapter(

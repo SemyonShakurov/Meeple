@@ -19,9 +19,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/roundedImageViewAvatar"
-        android:layout_width="126dp"
-        android:layout_height="126dp"
+        android:id="@+id/roundedImageViewAvatarProfile"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_marginTop="32dp"
         android:scaleType="fitCenter"
         android:src="@drawable/profile_test"
@@ -38,18 +38,19 @@
         style="@style/HeaderTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:text="TextView"
-        android:textSize="20dp"
+        android:layout_marginTop="22dp"
+        android:text="Гребенщиков \nМаксим"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/roundedImageViewAvatar" />
+        app:layout_constraintTop_toBottomOf="@+id/roundedImageViewAvatarProfile" />
 
     <TextView
         android:id="@+id/textViewNickname"
         style="@style/SubtitleTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
         android:text="TextView"
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:text="Мои друзья"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageViewFriends"
                 app:layout_constraintStart_toEndOf="@+id/imageViewFriends"
                 app:layout_constraintTop_toTopOf="@+id/imageViewFriends" />
@@ -127,6 +128,20 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageViewFriends" />
+
+            <TextView
+                android:id="@+id/textViewFriendsNotFound"
+                style="@style/SubtitleTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="40dp"
+                android:text="У вас пока нет друзей"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewFriends" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
@@ -176,7 +191,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:text="Мои игры"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageViewGames"
                 app:layout_constraintStart_toEndOf="@+id/imageViewGames"
                 app:layout_constraintTop_toTopOf="@+id/imageViewGames" />
@@ -194,6 +209,21 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageViewGames" />
+
+            <TextView
+                android:id="@+id/textViewGamesNotFound"
+                style="@style/SubtitleTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="40dp"
+                android:text="У вас пока нет игр"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewGames"
+                app:layout_constraintVertical_bias="0.207" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

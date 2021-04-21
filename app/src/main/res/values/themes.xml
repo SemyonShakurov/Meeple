@@ -49,11 +49,13 @@
     </style>
 
     <style name="InputStyle">
-        <item name="android:paddingStart">50dp</item>
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:paddingStart">30dp</item>
         <item name="android:background">@drawable/custom_input</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:layout_width">335dp</item>
     </style>
-
 
 </resources>

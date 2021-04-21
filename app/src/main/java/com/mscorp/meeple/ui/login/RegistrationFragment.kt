@@ -1,22 +1,27 @@
 package com.mscorp.meeple.ui.login
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
-import com.mscorp.meeple.api.Request
+import androidx.navigation.fragment.findNavController
+import com.mscorp.meeple.R
+import com.mscorp.meeple.model.Request
 import com.mscorp.meeple.databinding.FragmentRegistrationBinding
-import com.mscorp.meeple.ui.main.MenuActivity
 import com.mscorp.meeple.ui.viewmodel.RegistrationViewModel
-
 
 class RegistrationFragment : Fragment() {
 
     private lateinit var binding: FragmentRegistrationBinding
     private val viewModel = RegistrationViewModel()
+
+    internal fun EditText.isEmailValid(): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(this.text.toString()).matches()
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,33 +35,37 @@ class RegistrationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonRegistration.setOnClickListener {
-            viewModel.register(
-                binding.editTextUsername.text.trim().toString(),
-                binding.editTextEmail.text.trim().toString(),
-                binding.editTextConfirmPassword.text.trim().toString()
-            )
+
+            if (!binding.editTextEmail.isEmailValid())
+                Toast.makeText(context, "Неверный формат email!", Toast.LENGTH_SHORT).show()
+            else if (binding.editTextConfirmPassword.text.trim() != binding.editTextPassword.text.trim())
+                Toast.makeText(context, "Пароли должны совпадать!", Toast.LENGTH_SHORT).show()
+            else
+                viewModel.register(
+                    binding.editTextName.text.trim().toString(),
+                    "@"+binding.editTextUsername.text.trim().toString(),
+                    binding.editTextEmail.text.trim().toString(),
+                    binding.editTextConfirmPassword.text.trim().toString()
+                )
         }
 
-        binding.imageViewBack.setOnClickListener{
-            activity?.supportFragmentManager?. popBackStack()
+        binding.imageViewBack.setOnClickListener {
+            activity?.supportFragmentManager?.popBackStack()
         }
 
         binding.textViewHaveAccount.setOnClickListener {
-            activity?.supportFragmentManager?. popBackStack()
+            activity?.supportFragmentManager?.popBackStack()
         }
 
         viewModel.loginResponse.observe(viewLifecycleOwner, {
-            when(it){
+            when (it) {
                 is Request.Failure -> {
                     Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
                     binding.progressBarRegister.visibility = View.INVISIBLE
                 }
                 is Request.Success -> {
                     binding.progressBarRegister.visibility = View.INVISIBLE
-                    val intent = Intent(context, MenuActivity::class.java)
-                    intent.putExtra("user", it.value)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    startActivity(intent)
+                    Toast.makeText(context, "Good", Toast.LENGTH_SHORT).show()
                 }
                 is Request.Loading -> binding.progressBarRegister.visibility = View.VISIBLE
             }

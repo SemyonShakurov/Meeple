@@ -7,14 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.commit
+import androidx.navigation.compose.navArgument
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.mscorp.meeple.R
-import com.mscorp.meeple.api.Request
+import com.mscorp.meeple.model.Request
 import com.mscorp.meeple.databinding.FragmentStartBinding
+import com.mscorp.meeple.model.User
 import com.mscorp.meeple.ui.main.MenuActivity
 import com.mscorp.meeple.ui.viewmodel.LoginViewModel
 
 class StartFragment : Fragment() {
 
+    private var user: User? = null
     private lateinit var binding: FragmentStartBinding
     private val viewModel = LoginViewModel()
 
@@ -26,38 +32,54 @@ class StartFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.friendsResponse.observe(viewLifecycleOwner, {
+            if (it is Request.Loading)
+                binding.progressBar.visibility = View.VISIBLE
+            else {
+                binding.progressBar.visibility = View.INVISIBLE
+                if (it is Request.Success) {
+                    val intent = Intent(context, MenuActivity::class.java)
+                    intent.putExtra("user", user)
+                    intent.putExtra("friends", it.value)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    startActivity(intent)
+                } else if (it is Request.Failure) {
+                    Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
 
         viewModel.loginResponse.observe(viewLifecycleOwner, {
             if (it is Request.Loading)
                 binding.progressBar.visibility = View.VISIBLE
             else
                 binding.progressBar.visibility = View.INVISIBLE
-            if (it is Request.Success)
-            {
-                val intent = Intent(context, MenuActivity::class.java)
-                intent.putExtra("user", it.value)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                startActivity(intent)
-            }
-            else if (it is Request.Failure) {
+            if (it is Request.Success) {
+                user = it.value
+                viewModel.getFriends(it.value.id)
+            } else if (it is Request.Failure) {
                 Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
             }
         })
 
-        binding.NoAccountTextView.setOnClickListener{
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.mainFragmentContainer, RegistrationFragment())
+        binding.NoAccountTextView.setOnClickListener {
+            activity?.supportFragmentManager
+                ?.beginTransaction()
+                ?.replace( R.id.mainFragmentContainer, RegistrationFragment(), "")
                 ?.addToBackStack(null)
-                ?.commit();
+                ?.commit ()
         }
 
         binding.loginButton.setOnClickListener {
-            viewModel.login(binding.UserNameEditText.text.toString(),
-                binding.PasswordEditText.text.toString())
+            viewModel.login(
+                "@"+binding.UserNameEditText.text.toString(),
+                binding.PasswordEditText.text.toString()
+            )
         }
 
+        viewModel.login("@maxgromash", "1")
     }
 }

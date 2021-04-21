@@ -1,6 +1,4 @@
-package com.mscorp.meeple.api
-
-import okhttp3.ResponseBody
+package com.mscorp.meeple.model
 
 sealed class Request<out T> {
 
@@ -12,5 +10,5 @@ sealed class Request<out T> {
         val errorBody: String?
     ) : Request<Nothing>()
 
-    object Loading:Request<Nothing>()
+    object Loading: Request<Nothing>()
 }
