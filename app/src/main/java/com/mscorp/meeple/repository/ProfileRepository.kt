@@ -7,15 +7,18 @@ import com.mscorp.meeple.model.Request
 
 class ProfileRepository() : BaseRepository() {
 
-   /* val db = GamesDatabase.getInstance(context)
-    suspend fun updateGames(): List<BoardGame>? {
-        try {
-                val games = safeApiCall { api.updateGames() }
-                val g: List<BoardGame> = (games as Request.Success<List<BoardGame>>).value
-                db?.gamesDao()?.insertAllGames(g)
-        } catch (exeption: Exception){}
-        return db?.gamesDao()?.getAllGames()
-    }*/
+    /* val db = GamesDatabase.getInstance(context)
+     suspend fun updateGames(): List<BoardGame>? {
+         try {
+                 val games = safeApiCall { api.updateGames() }
+                 val g: List<BoardGame> = (games as Request.Success<List<BoardGame>>).value
+                 db?.gamesDao()?.insertAllGames(g)
+         } catch (exeption: Exception){}
+         return db?.gamesDao()?.getAllGames()
+     }*/
+
+    suspend fun acceptFriendRequest(id: Int, friendId: Int) =
+        safeApiCall { api.acceptFriend(id, friendId) }
 
     suspend fun sendFriendRequest(
         id: Int,

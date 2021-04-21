@@ -15,14 +15,17 @@ interface Api {
     @GET("")
     suspend fun updateGames(): List<BoardGame>
 
+    @PUT("user/acceptRequest")
+    suspend fun acceptFriend(@Query("id") id:Int, @Query("friendId") friendId: Int ):User
+
     @GET("user/getFriends")
     suspend fun getFriends(@Query("id") id: Int): UserFriends
 
-    @GET("register/getAll")
+    @GET("user/getAll")
     suspend fun getAllUsers(): MutableList<User>
 
     @FormUrlEncoded
-    @POST("user/sendRequest")
+    @PUT("user/sendRequest")
     suspend fun sendFriendRequest(
         @Field("id") id: Int,
         @Field("friendId") friendId: Int

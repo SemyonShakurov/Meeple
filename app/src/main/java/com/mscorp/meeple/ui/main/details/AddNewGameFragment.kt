@@ -48,7 +48,5 @@ class AddNewGameFragment : Fragment() {
         binding.recyclerViewNewGAmes.addItemDecoration(itemDecor)
         binding.recyclerViewNewGAmes.layoutManager = LinearLayoutManager(this.context)
         binding.recyclerViewNewGAmes.adapter = adapterGames
-
     }
-
 }

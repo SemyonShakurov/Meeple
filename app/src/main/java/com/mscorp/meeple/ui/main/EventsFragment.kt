@@ -25,5 +25,4 @@ class EventsFragment : Fragment() {
         binding = FragmentEventsBinding.inflate(inflater)
         return binding.root
     }
-
 }

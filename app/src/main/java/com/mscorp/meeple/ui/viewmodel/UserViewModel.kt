@@ -15,6 +15,14 @@ class UserViewModel :BaseViewModel() {
 
     val getAllUsersResponse: MutableLiveData<Request<MutableList<User>>> = MutableLiveData()
     val sendFriendRequestResponse: MutableLiveData<Request<User>> = MutableLiveData()
+    val acceptFriendRequestResponse: MutableLiveData<Request<User>> = MutableLiveData()
+
+    fun acceptFriendRequest(id: Int, friendId: Int){
+        viewModelScope.launch {
+            acceptFriendRequestResponse.value = Request.Loading
+            acceptFriendRequestResponse.value = repository.acceptFriendRequest(id, friendId)
+        }
+    }
 
     fun getAllUsers() {
         viewModelScope.launch {
