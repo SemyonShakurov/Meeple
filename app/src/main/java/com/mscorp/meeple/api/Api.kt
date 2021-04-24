@@ -1,6 +1,7 @@
 package com.mscorp.meeple.api
 
 import com.mscorp.meeple.model.BoardGame
+import com.mscorp.meeple.model.Event
 import com.mscorp.meeple.model.User
 import com.mscorp.meeple.model.UserFriends
 import retrofit2.http.*
@@ -40,4 +41,20 @@ interface Api {
         @Field("password") password: String
     ): User
 
+    @POST("events/addEvent")
+    suspend fun addEvent(
+        @Field("title") title: String,
+        @Field("count") count: Int,
+        @Field("games") games: List<Int>,
+        @Field("playersLevel") playersLevel: Int,
+        @Field("type") type: Int,
+        @Field("info") info: String,
+        @Field("date") date: Int,
+        @Field("access") access: Int,
+        @Field("members") members: List<Int>,
+        @Field("creatorId") creatorId: Int
+    ): Event
+
+    @GET("events/getAll")
+    suspend fun getEvents(): List<Event>
 }

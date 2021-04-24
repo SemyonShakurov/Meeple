@@ -5,13 +5,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mscorp.meeple.R
 import com.mscorp.meeple.model.Event
+import java.time.format.DateTimeFormatter
+import java.util.*
 
-//class EventsVIewHolder(view: View) : RecyclerView.ViewHolder(view) {
-//
-//    private val titleTextView = view.findViewById<TextView>(R.id.textViewEventTitle)
-//    private val dateTextView = view.findViewById<TextView>(R.id.textViewEventDate)
-//
-//    fun bind(event: Event) {
-//        titleTextView.text = event.
-//    }
-//}
+class EventsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+    private val titleTextView = view.findViewById<TextView>(R.id.textViewEventTitle)
+    private val dateTextView = view.findViewById<TextView>(R.id.textViewEventDate)
+
+    fun bind(event: Event) {
+        titleTextView.text = event.title
+
+        val date = Date(event.date.toLong() * 1000L)
+        dateTextView.text = date.toString()
+    }
+}

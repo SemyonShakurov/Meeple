@@ -42,6 +42,18 @@
         <action
             android:id="@+id/action_navigation_profile_to_navigation_map"
             app:destination="@id/navigation_map" />
+        <action
+            android:id="@+id/action_navigation_events_to_addNewEventFragment"
+            app:destination="@id/add_new_event_fragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/add_new_event_fragment"
+        android:name="com.mscorp.meeple.ui.main.details.AddNewEventFragment"
+        tools:layout="@layout/fragment_add_event">
+        <action
+            android:id="@+id/action_navigation_addNewEvent_to_events"
+            app:destination="@id/navigation_events" />
     </fragment>
 
     <fragment
