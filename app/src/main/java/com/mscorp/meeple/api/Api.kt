@@ -41,6 +41,7 @@ interface Api {
         @Field("password") password: String
     ): User
 
+    @FormUrlEncoded
     @POST("events/addEvent")
     suspend fun addEvent(
         @Field("title") title: String,
@@ -57,4 +58,11 @@ interface Api {
 
     @GET("events/getAll")
     suspend fun getEvents(): List<Event>
+
+    @FormUrlEncoded
+    @PUT("register/confirmEmail")
+    suspend fun confirmEmail(
+        @Field("email") email: String,
+        @Field("code") code: Int
+    ): User
 }

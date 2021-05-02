@@ -1,7 +1,5 @@
 package com.mscorp.meeple.repository
 
-import android.content.Context
-
 class AuthRepository : BaseRepository() {
 
     suspend fun login(
@@ -23,8 +21,15 @@ class AuthRepository : BaseRepository() {
         email: String,
         password: String
     ) = safeApiCall {
-        val res = api.register(name, username, email, password);
+        val res = api.register(name, username, email, password)
         //TODO: Проверка данных
         res
+    }
+
+    suspend fun confirmEmail(
+        email: String,
+        code: Int
+    ) = safeApiCall {
+        api.confirmEmail(email, code)
     }
 }
