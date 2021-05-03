@@ -5,5 +5,6 @@ import java.io.Serializable
 data class UserFriends(
     val friends: MutableList<User>,
     val received: MutableList<User>,
-    val sent: MutableList<User>
+    val sent: MutableList<User>,
+    val declined: MutableList<User>
 ) : Serializable

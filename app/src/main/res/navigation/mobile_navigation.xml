@@ -135,6 +135,9 @@
             app:exitAnim="@anim/fragment_fade_exit"
             app:popEnterAnim="@anim/fragment_fade_enter"
             app:popExitAnim="@anim/fragment_fade_exit"/>
+        <action
+            android:id="@+id/action_myFriendsFragment_to_friendDetailedFragment"
+            app:destination="@id/friendDetailedFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNewFriendsFragment"
@@ -149,6 +152,17 @@
             app:popEnterAnim="@anim/fragment_fade_enter"
             app:popExitAnim="@anim/fragment_fade_exit"
             />
+    </fragment>
+    <fragment
+        android:id="@+id/friendDetailedFragment"
+        android:name="com.mscorp.meeple.ui.main.details.FriendDetailedFragment"
+        android:label="FriendDetailedFragment" >
+        <argument
+            android:name="user"
+            app:argType="com.mscorp.meeple.model.User" />
+        <action
+            android:id="@+id/action_friendDetailedFragment_to_myFriendsFragment"
+            app:destination="@id/myFriendsFragment" />
     </fragment>
 
 </navigation>

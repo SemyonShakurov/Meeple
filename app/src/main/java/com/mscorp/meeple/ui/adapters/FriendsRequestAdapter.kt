@@ -45,7 +45,7 @@ class FriendsRequestAdapter(
         }
 
         holder.imageViewDecline.setOnClickListener{
-            //TODO: Сделать отклонение заявки в друзья
+            viewModel.declineFriendRequest(viewModel.user.id, dataSet[position].id)
         }
     }
 

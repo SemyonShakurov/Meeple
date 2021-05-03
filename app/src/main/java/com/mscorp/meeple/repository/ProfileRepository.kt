@@ -17,6 +17,12 @@ class ProfileRepository() : BaseRepository() {
          return db?.gamesDao()?.getAllGames()
      }*/
 
+    suspend fun declineFriendRequest(id: Int, friendId: Int) =
+        safeApiCall { api.declineFriend(id, friendId) }
+
+    suspend fun deleteFriendRequest(id: Int, friendId: Int) =
+        safeApiCall { api.deleteFriend(id, friendId) }
+
     suspend fun acceptFriendRequest(id: Int, friendId: Int) =
         safeApiCall { api.acceptFriend(id, friendId) }
 

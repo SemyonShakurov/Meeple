@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -50,15 +51,29 @@ class AddNewFriendsFragment : Fragment() {
                     adapter.setNewData(users)
                 else {
                     val copy = users.filter { it.name.toLowerCase().startsWith(query) || it.nickname.toLowerCase().startsWith("@"+query)}
-                    adapter.setNewData(copy)
+                    adapter.setNewData(copy as MutableList<User>)
                 }
                 return false
             }
         })
 
-
-        adapter = FriendsAdapter(listOf(), true, viewModel)
+        adapter = FriendsAdapter(mutableListOf(), true, viewModel, findNavController())
         viewModel.getAllUsers()
+
+        viewModel.acceptFriendRequestResponse.observe(viewLifecycleOwner, {
+            if (it is Request.Success) {
+                viewModel.userFriends.declined.remove(it.value)
+                viewModel.userFriends.received.remove(it.value)
+                viewModel.userFriends.friends.add(it.value)
+
+                adapter.dataSet.remove(it.value)
+                adapter.notifyDataSetChanged()
+                Toast.makeText(context, "Запрос в друзья одобрен", Toast.LENGTH_SHORT).show()
+                viewModel.acceptFriendRequestResponse = MutableLiveData()
+            } else if (it is Request.Failure) {
+                Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
+            }
+        })
 
         viewModel.sendFriendRequestResponse.observe(viewLifecycleOwner, {
             if (it is Request.Loading)
@@ -69,6 +84,7 @@ class AddNewFriendsFragment : Fragment() {
                     viewModel.userFriends.sent.add(it.value)
                     adapter.notifyDataSetChanged()
                     Toast.makeText(context, "Запрос в друзья отправлен", Toast.LENGTH_SHORT).show()
+                    viewModel.sendFriendRequestResponse = MutableLiveData()
                 } else if (it is Request.Failure) {
                     Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
                 }
@@ -85,6 +101,7 @@ class AddNewFriendsFragment : Fragment() {
                     users = it.value
                     users.remove(viewModel.user)
                     users.removeAll(viewModel.userFriends.friends)
+                    users.removeAll(viewModel.userFriends.received)
                     adapter.setNewData(users)
                     adapter.notifyDataSetChanged()
                 } else if (it is Request.Failure) {

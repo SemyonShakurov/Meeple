@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -14,10 +13,8 @@ import com.mscorp.meeple.R
 import com.mscorp.meeple.ui.adapters.SmallGamesAdapter
 import com.mscorp.meeple.databinding.FragmentMyGamesBinding
 import com.mscorp.meeple.model.BoardGame
-import com.mscorp.meeple.model.Request
 import com.mscorp.meeple.model.TypeOfGameList
 import com.mscorp.meeple.ui.viewmodel.UserViewModel
-
 
 class MyGamesFragment : Fragment() {
 
@@ -28,7 +25,6 @@ class MyGamesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = FragmentMyGamesBinding.inflate(inflater, container, false)
         return binding.root
     }

@@ -36,12 +36,10 @@ class MyFriendsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclers()
         setupOnCLick()
-
     }
 
     private fun setupRecyclers(){
-
-        val adapter = FriendsAdapter(viewModel.userFriends.friends, false, viewModel)
+        val adapter = FriendsAdapter(viewModel.userFriends.friends, false, viewModel, findNavController())
         val itemDecor = DividerItemDecoration(context, 1)
         binding.recyclerViewMyFriends.addItemDecoration(itemDecor)
         binding.recyclerViewMyFriends.layoutManager = LinearLayoutManager(context)
@@ -51,17 +49,47 @@ class MyFriendsFragment : Fragment() {
         binding.recyclerViewRequests.layoutManager = LinearLayoutManager(context)
         binding.recyclerViewRequests.adapter = adapterRequests
 
-        viewModel.acceptFriendRequestResponse.observe(viewLifecycleOwner, {
+        viewModel.declineFriendRequestResponse.observe(viewLifecycleOwner, {
+            if (it is Request.Success) {
+                viewModel.userFriends.received.remove(it.value)
+                viewModel.userFriends.declined.add(it.value)
 
+                adapterRequests.setNewData(viewModel.userFriends.received)
+                adapterRequests.notifyDataSetChanged()
+
+                Toast.makeText(context, "Заявка в друзья отклонена", Toast.LENGTH_SHORT).show()
+                viewModel.declineFriendRequestResponse = MutableLiveData()
+            } else if (it is Request.Failure) {
+                Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        viewModel.deleteFriendRequestResponse.observe(viewLifecycleOwner, {
+            if (it is Request.Success) {
+                viewModel.userFriends.friends.remove(it.value)
+                viewModel.userFriends.declined.add(it.value)
+
+                adapter.setNewData(viewModel.userFriends.friends)
+                adapter.notifyDataSetChanged()
+
+                Toast.makeText(context, "Друг удалён", Toast.LENGTH_SHORT).show()
+                viewModel.deleteFriendRequestResponse = MutableLiveData()
+            } else if (it is Request.Failure) {
+                Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        viewModel.acceptFriendRequestResponse.observe(viewLifecycleOwner, {
             if (it is Request.Success) {
                 viewModel.userFriends.received.remove(it.value)
                 viewModel.userFriends.friends.add(it.value)
-                adapterRequests.setNewData(viewModel.userFriends.sent)
+
+                adapterRequests.setNewData(viewModel.userFriends.received)
                 adapterRequests.notifyDataSetChanged()
                 adapter.setNewData(viewModel.userFriends.friends)
                 adapter.notifyDataSetChanged()
                 Toast.makeText(context, "Запрос в друзья одобрен", Toast.LENGTH_SHORT).show()
-                viewModel.acceptFriendRequestResponse.value = Request.Loading
+                viewModel.acceptFriendRequestResponse = MutableLiveData()
             } else if (it is Request.Failure) {
                 Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
             }

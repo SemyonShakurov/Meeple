@@ -13,14 +13,30 @@ class UserViewModel :BaseViewModel() {
     lateinit var userFriends: UserFriends
     private  var repository = ProfileRepository()
 
-    val getAllUsersResponse: MutableLiveData<Request<MutableList<User>>> = MutableLiveData()
-    val sendFriendRequestResponse: MutableLiveData<Request<User>> = MutableLiveData()
-    val acceptFriendRequestResponse: MutableLiveData<Request<User>> = MutableLiveData()
+    var getAllUsersResponse: MutableLiveData<Request<MutableList<User>>> = MutableLiveData()
+    var sendFriendRequestResponse: MutableLiveData<Request<User>> = MutableLiveData()
+    var acceptFriendRequestResponse: MutableLiveData<Request<User>> = MutableLiveData()
+    var deleteFriendRequestResponse: MutableLiveData<Request<User>> = MutableLiveData()
+    var declineFriendRequestResponse: MutableLiveData<Request<User>> = MutableLiveData()
+
+    fun declineFriendRequest(id: Int, friendId: Int){
+        viewModelScope.launch {
+            declineFriendRequestResponse.value = Request.Loading
+            declineFriendRequestResponse.value = repository.declineFriendRequest(id, friendId)
+        }
+    }
 
     fun acceptFriendRequest(id: Int, friendId: Int){
         viewModelScope.launch {
             acceptFriendRequestResponse.value = Request.Loading
             acceptFriendRequestResponse.value = repository.acceptFriendRequest(id, friendId)
+        }
+    }
+
+    fun deleteFriendRequest(id: Int, friendId: Int){
+        viewModelScope.launch {
+            deleteFriendRequestResponse.value = Request.Loading
+            deleteFriendRequestResponse.value = repository.deleteFriendRequest(id, friendId)
         }
     }
 
