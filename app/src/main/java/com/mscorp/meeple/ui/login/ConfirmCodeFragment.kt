@@ -28,12 +28,18 @@ class ConfirmCodeFragment : Fragment() {
 
     companion object {
         const val EMAIL_KEY = "Email"
+        const val BOOLEAN_KEY = "Boolean"
         const val PASS_KEY = "pass"
 
-        fun newInstance(email: String, pass: String): ConfirmCodeFragment {
+        fun newInstance(
+            email: String,
+            pass: String,
+            isReset: Boolean = false
+        ): ConfirmCodeFragment {
             val fragment = ConfirmCodeFragment()
             val bundle = Bundle()
             bundle.putString(EMAIL_KEY, email)
+            bundle.putBoolean(BOOLEAN_KEY, isReset)
             bundle.putString(PASS_KEY, pass)
             fragment.arguments = bundle
             return fragment
@@ -66,9 +72,19 @@ class ConfirmCodeFragment : Fragment() {
                     Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
                 }
                 is Request.Success -> {
-                    Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
-                    user = it.value
-                    viewModel.getFriends(it.value.id)
+                    if (!arguments?.getBoolean(BOOLEAN_KEY)!!) {
+                        Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                        user = it.value
+                        viewModel.getFriends(it.value.id)
+                    } else {
+                        activity?.supportFragmentManager
+                            ?.beginTransaction()
+                            ?.replace(
+                                R.id.mainFragmentContainer,
+                                ResetPasswordFragment.newInstance(it.value.id)
+                            )
+                            ?.commit()
+                    }
                 }
             }
         }
@@ -78,22 +94,24 @@ class ConfirmCodeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.friendsResponse.observe(viewLifecycleOwner, {
-            if (it is Request.Success) {
-                val preferences =
-                    SecurePreferences(
-                        context,
-                        "my-preferences",
-                        "SometopSecretKey1235",
-                        true
-                    )
-                preferences.put("userId", user?.nickname)
-                preferences.put("pass", arguments?.getString(PASS_KEY)!!)
-                login(it.value)
-            } else if (it is Request.Failure) {
-                Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
-            }
-        })
+        if (!arguments?.getBoolean(BOOLEAN_KEY)!!) {
+            viewModel.friendsResponse.observe(viewLifecycleOwner, {
+                if (it is Request.Success) {
+                    val preferences =
+                        SecurePreferences(
+                            context,
+                            "my-preferences",
+                            "SometopSecretKey1235",
+                            true
+                        )
+                    preferences.put("userId", user?.nickname)
+                    preferences.put("pass", arguments?.getString(PASS_KEY)!!)
+                    login(it.value)
+                } else if (it is Request.Failure) {
+                    Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
     }
 
     fun login(userFriends: UserFriends) {

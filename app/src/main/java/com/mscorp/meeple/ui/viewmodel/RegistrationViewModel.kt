@@ -32,4 +32,21 @@ class RegistrationViewModel : BaseViewModel() {
             loginResponse.value = regRepository.confirmEmail(email, code)
         }
     }
+
+    fun sendCode(
+        nickname: String
+    ) {
+        viewModelScope.launch {
+            loginResponse.value = regRepository.sendCode(nickname)
+        }
+    }
+
+    fun resetPassword(
+        id: Int,
+        password: String
+    ) {
+        viewModelScope.launch {
+            loginResponse.value = regRepository.resetPassword(id, password)
+        }
+    }
 }

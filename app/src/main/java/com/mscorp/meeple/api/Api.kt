@@ -16,13 +16,13 @@ interface Api {
 
     //Friends
     @PUT("user/deleteFriend")
-    suspend fun deleteFriend(@Query("id") id:Int, @Query("friendId") friendId: Int ):User
+    suspend fun deleteFriend(@Query("id") id: Int, @Query("friendId") friendId: Int): User
 
     @PUT("user/acceptRequest")
-    suspend fun acceptFriend(@Query("id") id:Int, @Query("friendId") friendId: Int ):User
+    suspend fun acceptFriend(@Query("id") id: Int, @Query("friendId") friendId: Int): User
 
     @PUT("user/declineRequest")
-    suspend fun declineFriend(@Query("id") id:Int, @Query("friendId") friendId: Int ):User
+    suspend fun declineFriend(@Query("id") id: Int, @Query("friendId") friendId: Int): User
 
     @GET("user/getFriends")
     suspend fun getFriends(@Query("id") id: Int): UserFriends
@@ -68,5 +68,18 @@ interface Api {
     suspend fun confirmEmail(
         @Field("email") email: String,
         @Field("code") code: Int
+    ): User
+
+    @FormUrlEncoded
+    @PUT("register/sendCode")
+    suspend fun sendCode(
+        @Field("nickname") nickname: String
+    ): User
+
+    @FormUrlEncoded
+    @PUT("register/resetPassword")
+    suspend fun resetPassword(
+        @Field("id") id: Int,
+        @Field("password") password: String
     ): User
 }

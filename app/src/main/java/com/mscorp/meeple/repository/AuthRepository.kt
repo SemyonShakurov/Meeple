@@ -32,4 +32,17 @@ class AuthRepository : BaseRepository() {
     ) = safeApiCall {
         api.confirmEmail(email, code)
     }
+
+    suspend fun sendCode(
+        nickname: String
+    ) = safeApiCall {
+        api.sendCode(nickname)
+    }
+
+    suspend fun resetPassword(
+        id: Int,
+        password: String
+    ) = safeApiCall {
+        api.resetPassword(id, password)
+    }
 }

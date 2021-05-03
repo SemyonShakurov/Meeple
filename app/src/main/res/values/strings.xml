@@ -39,4 +39,5 @@
     <string name="code">Код</string>
     <string name="confirm">Подтвердить</string>
     <string name="input_nickname">Введите никнейм от аккаунта, в котором хотите изменить пароль для входа</string>
+    <string name="reset_password">Введите новый пароль</string>
 </resources>
