@@ -6,12 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.makeramen.roundedimageview.RoundedImageView
 import com.mscorp.meeple.R
+import com.mscorp.meeple.model.Request
 import com.mscorp.meeple.model.User
+import com.mscorp.meeple.model.UserFriends
+import com.mscorp.meeple.ui.viewmodel.LoginViewModel
 import com.mscorp.meeple.ui.viewmodel.UserViewModel
 import com.squareup.picasso.Picasso
 
@@ -19,8 +25,11 @@ class FriendsAdapter(
     var dataSet: MutableList<User>,
     private val addFriend: Boolean,
     private val viewModel: UserViewModel,
-    private val navController: NavController
+    private val navController: NavController,
+    private val lifecycleOwner: LifecycleOwner
 ) : RecyclerView.Adapter<FriendsAdapter.ViewHolder>() {
+
+    private val viewModelLogin = LoginViewModel()
 
     fun setNewData(data: MutableList<User>) {
         dataSet = data
@@ -45,15 +54,31 @@ class FriendsAdapter(
         if (viewModel.userFriends.sent.contains(dataSet[position]))
             holder.imageViewAddDeleteFriend.visibility = View.INVISIBLE
 
-        if (!addFriend)
-            holder.constraint.setOnClickListener {
+
+        holder.constraint.setOnClickListener {
+            viewModelLogin.getFriends(dataSet[position].id)
+        }
+
+        viewModelLogin.friendsResponse.observe(lifecycleOwner, {
+            if (it is Request.Success) {
                 val bundle = Bundle()
                 bundle.putSerializable("user", dataSet[position])
-                navController.navigate(
-                    R.id.action_myFriendsFragment_to_friendDetailedFragment,
-                    bundle
-                )
+                bundle.putSerializable("friends", it.value)
+                if (addFriend)
+                    navController.navigate(
+                        R.id.action_addNewFriendsFragment_to_friendDetailedFragment,
+                        bundle
+                    )
+                else
+                    navController.navigate(
+                        R.id.action_myFriendsFragment_to_friendDetailedFragment,
+                        bundle
+                    )
             }
+            else if (it is Request.Failure){
+                val x = it.errorBody
+            }
+        })
 
         Picasso.get().load(dataSet[position].photoUrl).into(holder.imageViewAvatar)
         holder.textViewName.text = dataSet[position].name

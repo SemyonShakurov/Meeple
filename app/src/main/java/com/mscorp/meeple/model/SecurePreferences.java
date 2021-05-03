@@ -1,40 +1,17 @@
 package com.mscorp.meeple.model;
 
-/*
-Copyright (C) 2012 Sveinung Kval Bakken, sveinung.bakken@gmail.com
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Base64;
-
 
 public class SecurePreferences {
 
@@ -43,7 +20,6 @@ public class SecurePreferences {
         public SecurePreferencesException(Throwable e) {
             super(e);
         }
-
     }
 
     private static final String TRANSFORMATION = "AES/CBC/PKCS5Padding";
@@ -57,17 +33,6 @@ public class SecurePreferences {
     private final Cipher keyWriter;
     private final SharedPreferences preferences;
 
-    /**
-     * This will initialize an instance of the SecurePreferences class
-     * @param context your current context.
-     * @param preferenceName name of preferences file (preferenceName.xml)
-     * @param secureKey the key used for encryption, finding a good key scheme is hard.
-     * Hardcoding your key in the application is bad, but better than plaintext preferences. Having the user enter the key upon application launch is a safe(r) alternative, but annoying to the user.
-     * @param encryptKeys settings this to false will only encrypt the values,
-     * true will encrypt both values and keys. Keys can contain a lot of information about
-     * the plaintext value of the value which can be used to decipher the value.
-     * @throws SecurePreferencesException
-     */
     public SecurePreferences(Context context, String preferenceName, String secureKey, boolean encryptKeys) throws SecurePreferencesException {
         try {
             this.writer = Cipher.getInstance(TRANSFORMATION);
@@ -79,10 +44,7 @@ public class SecurePreferences {
             this.preferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
             this.encryptKeys = encryptKeys;
         }
-        catch (GeneralSecurityException e) {
-            throw new SecurePreferencesException(e);
-        }
-        catch (UnsupportedEncodingException e) {
+        catch (GeneralSecurityException | UnsupportedEncodingException e) {
             throw new SecurePreferencesException(e);
         }
     }

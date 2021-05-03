@@ -10,5 +10,6 @@ data class User (
     var photoUrl: String?,
     val games: List<Int>?,
     val friends: List<Int>?,
-    val events: List<Int>?
+    val events: List<Int>?,
+    val enabled: Boolean
 ): Serializable

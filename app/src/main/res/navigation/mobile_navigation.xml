@@ -49,7 +49,7 @@
 
     <fragment
         android:id="@+id/add_new_event_fragment"
-        android:name="com.mscorp.meeple.ui.main.details.AddNewEventFragment"
+        android:name="com.mscorp.meeple.ui.main.events.AddNewEventFragment"
         tools:layout="@layout/fragment_add_event">
         <action
             android:id="@+id/action_navigation_addNewEvent_to_events"
@@ -88,7 +88,7 @@
 
     <fragment
         android:id="@+id/myGamesFragment"
-        android:name="com.mscorp.meeple.ui.main.details.MyGamesFragment"
+        android:name="com.mscorp.meeple.ui.main.games.MyGamesFragment"
         android:label="fragment_my_games"
         tools:layout="@layout/fragment_my_games">
         <action
@@ -108,7 +108,7 @@
     </fragment>
     <fragment
         android:id="@+id/addNewGameFragment"
-        android:name="com.mscorp.meeple.ui.main.details.AddNewGameFragment"
+        android:name="com.mscorp.meeple.ui.main.games.AddNewGameFragment"
         android:label="fragment_add_new_game"
         tools:layout="@layout/fragment_add_new_game">
         <action
@@ -121,7 +121,7 @@
     </fragment>
     <fragment
         android:id="@+id/myFriendsFragment"
-        android:name="com.mscorp.meeple.ui.main.details.MyFriendsFragment"
+        android:name="com.mscorp.meeple.ui.main.friends.MyFriendsFragment"
         android:label="fragment_my_friends"
         tools:layout="@layout/fragment_my_friends">
         <action
@@ -144,7 +144,7 @@
     </fragment>
     <fragment
         android:id="@+id/addNewFriendsFragment"
-        android:name="com.mscorp.meeple.ui.main.details.AddNewFriendsFragment"
+        android:name="com.mscorp.meeple.ui.main.friends.AddNewFriendsFragment"
         android:label="fragment_add_new_friends"
         tools:layout="@layout/fragment_add_new_friends">
         <action
@@ -155,10 +155,13 @@
             app:popEnterAnim="@anim/fragment_fade_enter"
             app:popExitAnim="@anim/fragment_fade_exit"
             />
+        <action
+            android:id="@+id/action_addNewFriendsFragment_to_friendDetailedFragment"
+            app:destination="@id/friendDetailedFragment" />
     </fragment>
     <fragment
         android:id="@+id/friendDetailedFragment"
-        android:name="com.mscorp.meeple.ui.main.details.FriendDetailedFragment"
+        android:name="com.mscorp.meeple.ui.main.friends.FriendDetailedFragment"
         android:label="FriendDetailedFragment" >
         <argument
             android:name="user"
@@ -166,6 +169,9 @@
         <action
             android:id="@+id/action_friendDetailedFragment_to_myFriendsFragment"
             app:destination="@id/myFriendsFragment" />
+        <action
+            android:id="@+id/action_friendDetailedFragment_to_addNewFriendsFragment"
+            app:destination="@id/addNewFriendsFragment" />
     </fragment>
 
     <fragment

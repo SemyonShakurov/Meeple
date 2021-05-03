@@ -1,4 +1,4 @@
-package com.mscorp.meeple.ui.main.details
+package com.mscorp.meeple.ui.main.events
 
 import android.os.Bundle
 import android.view.LayoutInflater

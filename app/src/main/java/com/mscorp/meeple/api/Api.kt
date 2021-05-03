@@ -1,6 +1,5 @@
 package com.mscorp.meeple.api
 
-import com.mscorp.meeple.model.BoardGame
 import com.mscorp.meeple.model.Event
 import com.mscorp.meeple.model.User
 import com.mscorp.meeple.model.UserFriends

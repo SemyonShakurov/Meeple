@@ -1,4 +1,4 @@
-package com.mscorp.meeple.ui.main.details
+package com.mscorp.meeple.ui.main.games
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

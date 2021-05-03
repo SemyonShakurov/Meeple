@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.mscorp.meeple.R
@@ -16,7 +15,6 @@ import com.mscorp.meeple.model.User
 import com.mscorp.meeple.model.UserFriends
 import com.mscorp.meeple.ui.main.MenuActivity
 import com.mscorp.meeple.ui.viewmodel.LoginViewModel
-
 
 class StartFragment : Fragment() {
 
@@ -32,8 +30,6 @@ class StartFragment : Fragment() {
     ): View {
         val preferences =
             SecurePreferences(context, "my-preferences", "SometopSecretKey1235", true)
-        //preferences.removeValue("userId")
-        //preferences.removeValue("pass")
         binding = FragmentStartBinding.inflate(inflater, container, false)
         val login: String? = preferences.getString("userId")
         return if (login == null) {
@@ -50,11 +46,10 @@ class StartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var progressBar: ProgressBar
-        if (havAcc)
-            progressBar = view.findViewById(R.id.progressBarLoggin)
+        val progressBar = if (havAcc)
+            view.findViewById(R.id.progressBarLoggin)
         else
-            progressBar = binding.progressBar
+            binding.progressBar
 
         viewModel.friendsResponse.observe(viewLifecycleOwner, {
             if (it is Request.Loading)
@@ -72,7 +67,6 @@ class StartFragment : Fragment() {
                             )
                         preferences.put("userId", "@" + binding.UserNameEditText.text.toString())
                         preferences.put("pass", binding.PasswordEditText.text.toString())
-                        val pass = preferences.getString("pass")
                     }
 
                     login(it.value)
@@ -90,7 +84,14 @@ class StartFragment : Fragment() {
                 progressBar.visibility = View.INVISIBLE
             if (it is Request.Success) {
                 user = it.value
-                viewModel.getFriends(it.value.id)
+                if (!user!!.enabled)
+                    Toast.makeText(
+                        context,
+                        "Регастрация не завершена, повторите попытку",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                else
+                    viewModel.getFriends(it.value.id)
             } else if (it is Request.Failure) {
                 Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
             }

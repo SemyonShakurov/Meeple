@@ -12,11 +12,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        /*val intent = Intent(this, MenuActivity::class.java)
-        intent.putExtra("user", User(1, "max@gmail.com", "maxgromash", "Максим \nГребенщиков", "123", null, null ,null ))
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        startActivity(intent)*/
-
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .add(R.id.mainFragmentContainer, StartFragment(), "tag")

@@ -1,4 +1,4 @@
-package com.mscorp.meeple.ui.main.details
+package com.mscorp.meeple.ui.main.friends
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -57,7 +57,7 @@ class AddNewFriendsFragment : Fragment() {
             }
         })
 
-        adapter = FriendsAdapter(mutableListOf(), true, viewModel, findNavController())
+        adapter = FriendsAdapter(mutableListOf(), true, viewModel, findNavController(), viewLifecycleOwner)
         viewModel.getAllUsers()
 
         viewModel.acceptFriendRequestResponse.observe(viewLifecycleOwner, {

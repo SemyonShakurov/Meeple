@@ -1,4 +1,4 @@
-package com.mscorp.meeple.ui.main.details
+package com.mscorp.meeple.ui.main.friends
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -39,7 +39,7 @@ class MyFriendsFragment : Fragment() {
     }
 
     private fun setupRecyclers(){
-        val adapter = FriendsAdapter(viewModel.userFriends.friends, false, viewModel, findNavController())
+        val adapter = FriendsAdapter(viewModel.userFriends.friends, false, viewModel, findNavController(), viewLifecycleOwner)
         val itemDecor = DividerItemDecoration(context, 1)
         binding.recyclerViewMyFriends.addItemDecoration(itemDecor)
         binding.recyclerViewMyFriends.layoutManager = LinearLayoutManager(context)

@@ -20,7 +20,6 @@ class RegistrationFragment : Fragment() {
     internal fun EditText.isEmailValid(): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(this.text.toString()).matches()
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,7 +32,6 @@ class RegistrationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonRegistration.setOnClickListener {
-
             if (!binding.editTextEmail.isEmailValid())
                 Toast.makeText(context, "Неверный формат email!", Toast.LENGTH_SHORT).show()
             else if (binding.editTextConfirmPassword.text.trim() != binding.editTextPassword.text.trim())
@@ -45,16 +43,6 @@ class RegistrationFragment : Fragment() {
                     binding.editTextEmail.text.trim().toString(),
                     binding.editTextConfirmPassword.text.trim().toString()
                 )
-                activity?.supportFragmentManager
-                    ?.beginTransaction()
-                    ?.replace(
-                        R.id.mainFragmentContainer,
-                        ConfirmCodeFragment.newInstance(
-                            binding.editTextEmail.text.trim().toString()
-                        )
-                    )
-                    ?.addToBackStack(null)
-                    ?.commit()
             }
         }
 
@@ -74,7 +62,18 @@ class RegistrationFragment : Fragment() {
                 }
                 is Request.Success -> {
                     binding.progressBarRegister.visibility = View.INVISIBLE
-                    Toast.makeText(context, "Good", Toast.LENGTH_SHORT).show()
+
+                    activity?.supportFragmentManager
+                        ?.beginTransaction()
+                        ?.replace(
+                            R.id.mainFragmentContainer,
+                            ConfirmCodeFragment.newInstance(
+                                binding.editTextEmail.text.trim().toString(),
+                                binding.editTextPassword.text.trim().toString()
+                            )
+                        )
+                        ?.addToBackStack(null)
+                        ?.commit()
                 }
                 is Request.Loading -> binding.progressBarRegister.visibility = View.VISIBLE
             }
