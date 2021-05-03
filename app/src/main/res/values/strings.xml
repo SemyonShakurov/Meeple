@@ -34,4 +34,9 @@
     <string name="title">Название события</string>
     <string name="people_count">Количество участников</string>
     <string name="people_level">Уровень игроков</string>
+    <string name="confirm_email">Подтверждение почты</string>
+    <string name="hint_confirm_email">На указанную почту отправлен код.Введите его в поле ниже для подтверждения почты</string>
+    <string name="code">Код</string>
+    <string name="confirm">Подтвердить</string>
+    <string name="input_nickname">Введите никнейм от аккаунта, в котором хотите изменить пароль для входа</string>
 </resources>

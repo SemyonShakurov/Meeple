@@ -114,7 +114,13 @@ class StartFragment : Fragment() {
             )
         }
 
-
+        binding.ForgotPassTextView.setOnClickListener {
+            activity?.supportFragmentManager
+                ?.beginTransaction()
+                ?.replace(R.id.mainFragmentContainer, InputNicknameFragment())
+                ?.addToBackStack(null)
+                ?.commit()
+        }
     }
 
     fun login(userFriends: UserFriends) {

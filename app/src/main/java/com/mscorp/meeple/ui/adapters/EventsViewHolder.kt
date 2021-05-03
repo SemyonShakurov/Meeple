@@ -5,7 +5,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mscorp.meeple.R
 import com.mscorp.meeple.model.Event
-import java.time.format.DateTimeFormatter
+import java.text.SimpleDateFormat
 import java.util.*
 
 class EventsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -17,6 +17,6 @@ class EventsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         titleTextView.text = event.title
 
         val date = Date(event.date.toLong() * 1000L)
-        dateTextView.text = date.toString()
+        dateTextView.text = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.US).format(date)
     }
 }

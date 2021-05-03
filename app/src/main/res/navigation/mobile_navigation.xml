@@ -68,6 +68,9 @@
             app:exitAnim="@anim/fragment_fade_exit"
             app:popEnterAnim="@anim/fragment_fade_enter"
             app:popExitAnim="@anim/fragment_fade_exit"/>
+        <action
+            android:id="@+id/action_fragment_registration_to_fragment_confirm_code"
+            app:destination="@id/fragment_confirm_code" />
     </fragment>
 
     <fragment
@@ -163,6 +166,19 @@
         <action
             android:id="@+id/action_friendDetailedFragment_to_myFriendsFragment"
             app:destination="@id/myFriendsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_confirm_code"
+        android:name="com.mscorp.meeple.ui.login.ConfirmCodeFragment"
+        tools:layout="@layout/fragment_confirm_code">
+        <action
+            android:id="@+id/action_fragment_confirm_code_to_fragment_registration"
+            app:destination="@id/registrationFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
 
 </navigation>

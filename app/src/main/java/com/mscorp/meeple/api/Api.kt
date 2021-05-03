@@ -15,16 +15,6 @@ interface Api {
         @Query("password") password: String
     ): User
 
-    @FormUrlEncoded
-    @POST("register/add")
-    suspend fun register(
-        @Field("name") name: String,
-        @Field("nickname") nickname: String,
-        @Field("email") email: String,
-        @Field("password") password: String
-    ): User
-
-
     //Friends
     @PUT("user/deleteFriend")
     suspend fun deleteFriend(@Query("id") id:Int, @Query("friendId") friendId: Int ):User
@@ -48,15 +38,15 @@ interface Api {
         @Field("friendId") friendId: Int
     ): User
 
+    @FormUrlEncoded
+    @POST("register/add")
+    suspend fun register(
+        @Field("name") name: String,
+        @Field("nickname") nickname: String,
+        @Field("email") email: String,
+        @Field("password") password: String
+    ): User
 
-
-
-    //Games
-    @GET("")
-    suspend fun updateGames(): List<BoardGame>
-
-
-    //Events
     @POST("events/addEvent")
     suspend fun addEvent(
         @Field("title") title: String,
@@ -73,4 +63,11 @@ interface Api {
 
     @GET("events/getAll")
     suspend fun getEvents(): List<Event>
+
+    @FormUrlEncoded
+    @PUT("register/confirmEmail")
+    suspend fun confirmEmail(
+        @Field("email") email: String,
+        @Field("code") code: Int
+    ): User
 }
