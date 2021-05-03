@@ -1,4 +1,4 @@
-package com.mscorp.meeple.ui.main.details
+package com.mscorp.meeple.ui.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,14 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.mscorp.meeple.R
 import com.mscorp.meeple.model.Request
-import com.mscorp.meeple.ui.login.RegistrationFragment
-import com.mscorp.meeple.ui.login.StartFragment
 import com.mscorp.meeple.ui.viewmodel.RegistrationViewModel
 import java.lang.NumberFormatException
 

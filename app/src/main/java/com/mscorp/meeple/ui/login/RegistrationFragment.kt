@@ -10,7 +10,6 @@ import android.widget.Toast
 import com.mscorp.meeple.R
 import com.mscorp.meeple.model.Request
 import com.mscorp.meeple.databinding.FragmentRegistrationBinding
-import com.mscorp.meeple.ui.main.details.ConfirmCodeFragment
 import com.mscorp.meeple.ui.viewmodel.RegistrationViewModel
 
 class RegistrationFragment : Fragment() {
