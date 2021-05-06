@@ -1,5 +1,6 @@
 package com.mscorp.meeple.api
 
+import com.mscorp.meeple.model.BoardGame
 import com.mscorp.meeple.model.Event
 import com.mscorp.meeple.model.User
 import com.mscorp.meeple.model.UserFriends
@@ -46,6 +47,7 @@ interface Api {
         @Field("password") password: String
     ): User
 
+    @FormUrlEncoded
     @POST("events/addEvent")
     suspend fun addEvent(
         @Field("title") title: String,
@@ -82,4 +84,13 @@ interface Api {
         @Field("id") id: Int,
         @Field("password") password: String
     ): User
+
+    @GET("games/getAll")
+    suspend fun getAllGames(): List<BoardGame>
+
+    @PUT("games/addGame")
+    suspend fun addGame(@Query("userId") id: Int, @Query("gameId") gameID: Int) : BoardGame
+
+    @PUT("games/removeGame")
+    suspend fun deleteGame(@Query("userId") id: Int, @Query("gameId") gameID: Int) : BoardGame
 }

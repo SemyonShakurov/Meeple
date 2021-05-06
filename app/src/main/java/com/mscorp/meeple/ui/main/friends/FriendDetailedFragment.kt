@@ -30,7 +30,7 @@ class FriendDetailedFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentFriendDetailedBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -76,9 +76,9 @@ class FriendDetailedFragment : Fragment() {
         else
             binding.textViewGamesNotFoundUser.visibility = View.INVISIBLE
 
-        val adapterGames = SmallGamesAdapter(
-            arrayOf(), TypeOfGameList.SMALL
-        )
+        val adapterGames =
+            SmallGamesAdapter(listOf(), TypeOfGameList.SMALL, findNavController(), viewModel)
+
         binding.recyclerGamesUser.addItemDecoration(itemDecor)
         binding.recyclerGamesUser.layoutManager = LinearLayoutManager(this.context)
         binding.recyclerGamesUser.adapter = adapterGames
@@ -87,8 +87,8 @@ class FriendDetailedFragment : Fragment() {
 
     private fun setupOnCLickListeners() {
 
-        binding.imageViewBackFromAddNewFriend.setOnClickListener{
-            findNavController().navigate(R.id.action_friendDetailedFragment_to_addNewFriendsFragment)
+        binding.imageViewBackFromAddNewFriend.setOnClickListener {
+            findNavController().navigate(arguments?.getInt("back")!!)
         }
     }
 }

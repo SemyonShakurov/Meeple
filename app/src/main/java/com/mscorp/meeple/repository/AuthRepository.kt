@@ -22,7 +22,6 @@ class AuthRepository : BaseRepository() {
         password: String
     ) = safeApiCall {
         val res = api.register(name, username, email, password)
-        //TODO: Проверка данных
         res
     }
 
@@ -45,4 +44,6 @@ class AuthRepository : BaseRepository() {
     ) = safeApiCall {
         api.resetPassword(id, password)
     }
+
+    suspend fun getAllGames() = safeApiCall { api.getAllGames() }
 }

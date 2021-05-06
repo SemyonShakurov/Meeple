@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.mscorp.meeple.model.BoardGame
-
+/*
 @Database(entities = [BoardGame::class], version = 1, exportSchema = false)
 abstract class GamesDatabase : RoomDatabase() {
     abstract fun gamesDao() : GamesDao
@@ -29,4 +29,4 @@ abstract class GamesDatabase : RoomDatabase() {
         }
     }
 
-}
+}*/

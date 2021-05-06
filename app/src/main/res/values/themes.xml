@@ -27,6 +27,17 @@
         <item name="android:textAlignment">center</item>
     </style>
 
+    <style name="MainTextHeader">
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="MainText">
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <style name="SecondHeaderTExtStyle">
         <item name="android:textColor">@color/header_color</item>
         <item name="fontFamily">@font/roboto_medium</item>

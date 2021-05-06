@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
@@ -20,7 +19,6 @@ import com.mscorp.meeple.ui.login.LoginActivity
 import com.mscorp.meeple.ui.viewmodel.UserViewModel
 import com.squareup.picasso.Picasso
 
-
 class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
@@ -29,7 +27,7 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -39,14 +37,16 @@ class ProfileFragment : Fragment() {
         try {
             viewModel.user = requireArguments().get("user") as User
             viewModel.userFriends = requireArguments().get("friends") as UserFriends
-        } catch (ignored: Exception) { }
+            viewModel.games = (requireArguments().get("games") as BoardGames).games
+        } catch (ignored: Exception) {
+        }
 
         setupViews()
         setupAdapters()
         setupOnCLickListeners()
     }
 
-    private fun setupViews(){
+    private fun setupViews() {
         var name = viewModel.user.name
         name = name.substring(0, name.indexOf(' ')) + "\n" + name.substring(
             name.indexOf(' '),
@@ -67,7 +67,7 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(R.id.action_navigation_profile_to_myFriendsFragment)
         }
 
-        binding.imageViewSignOut.setOnClickListener{
+        binding.imageViewSignOut.setOnClickListener {
             val preferences =
                 SecurePreferences(context, "my-preferences", "SometopSecretKey1235", true)
             preferences.removeValue("userId")
@@ -95,12 +95,17 @@ class ProfileFragment : Fragment() {
         //Игры
         if (viewModel.user.games.isNullOrEmpty())
             binding.textViewGamesNotFound.visibility = View.VISIBLE
-        else
+        else {
             binding.textViewGamesNotFound.visibility = View.INVISIBLE
+        }
 
         val adapterGames = SmallGamesAdapter(
-            arrayOf(), TypeOfGameList.SMALL
+            viewModel.getUsersGames().take(3),
+            TypeOfGameList.SMALL,
+            findNavController(),
+            viewModel
         )
+
         binding.recyclerGames.addItemDecoration(itemDecor)
         binding.recyclerGames.layoutManager = LinearLayoutManager(this.context)
         binding.recyclerGames.adapter = adapterGames

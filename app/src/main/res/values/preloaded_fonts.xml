@@ -5,5 +5,6 @@
         <item>@font/roboto_bold</item>
         <item>@font/roboto_light</item>
         <item>@font/roboto_medium</item>
+        <item>@font/roboto_mono</item>
     </array>
 </resources>

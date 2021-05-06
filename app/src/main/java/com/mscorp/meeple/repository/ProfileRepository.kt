@@ -1,21 +1,6 @@
 package com.mscorp.meeple.repository
 
-import android.content.Context
-import com.mscorp.meeple.db.GamesDatabase
-import com.mscorp.meeple.model.BoardGame
-import com.mscorp.meeple.model.Request
-
 class ProfileRepository() : BaseRepository() {
-
-    /* val db = GamesDatabase.getInstance(context)
-     suspend fun updateGames(): List<BoardGame>? {
-         try {
-                 val games = safeApiCall { api.updateGames() }
-                 val g: List<BoardGame> = (games as Request.Success<List<BoardGame>>).value
-                 db?.gamesDao()?.insertAllGames(g)
-         } catch (exeption: Exception){}
-         return db?.gamesDao()?.getAllGames()
-     }*/
 
     suspend fun declineFriendRequest(id: Int, friendId: Int) =
         safeApiCall { api.declineFriend(id, friendId) }
@@ -26,15 +11,13 @@ class ProfileRepository() : BaseRepository() {
     suspend fun acceptFriendRequest(id: Int, friendId: Int) =
         safeApiCall { api.acceptFriend(id, friendId) }
 
-    suspend fun sendFriendRequest(
-        id: Int,
-        friendId: Int
-    ) = safeApiCall {
-        api.sendFriendRequest(id, friendId)
-    }
+    suspend fun sendFriendRequest(id: Int, friendId: Int) =
+        safeApiCall { api.sendFriendRequest(id, friendId) }
 
-    suspend fun getAllUsers(
-    ) = safeApiCall {
-        api.getAllUsers()
-    }
+    suspend fun getAllUsers() =
+        safeApiCall { api.getAllUsers() }
+
+    suspend fun addGame(id: Int, gameId: Int) = safeApiCall { api.addGame(id, gameId) }
+
+    suspend fun deleteGame(id: Int, gameId: Int) = safeApiCall { api.deleteGame(id, gameId) }
 }

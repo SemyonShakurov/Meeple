@@ -8,8 +8,7 @@ data class User (
     val nickname: String,
     val name: String,
     var photoUrl: String?,
-    val games: List<Int>?,
-    val friends: List<Int>?,
+    val games: MutableList<Int>?,
     val events: List<Int>?,
     val enabled: Boolean
 ): Serializable

@@ -1,16 +1,17 @@
 package com.mscorp.meeple.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import java.io.Serializable
 
-@Entity(tableName = "games")
-class BoardGame(
-    @PrimaryKey
+data class BoardGames(
+    val games: List<BoardGame>
+) : Serializable
+
+data class BoardGame(
     val id: Int,
     val name: String,
     val type: String,
-    val countPlayer: Int,
+    val countPlayer: String,
     val time: Int,
     val description: String,
     val pic: String
-)
+): Serializable

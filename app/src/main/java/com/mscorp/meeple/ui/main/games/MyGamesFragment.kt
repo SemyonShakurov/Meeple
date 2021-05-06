@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -12,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mscorp.meeple.R
 import com.mscorp.meeple.ui.adapters.SmallGamesAdapter
 import com.mscorp.meeple.databinding.FragmentMyGamesBinding
-import com.mscorp.meeple.model.BoardGame
+import com.mscorp.meeple.model.Request
 import com.mscorp.meeple.model.TypeOfGameList
 import com.mscorp.meeple.ui.viewmodel.UserViewModel
 
@@ -24,7 +26,7 @@ class MyGamesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMyGamesBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -33,18 +35,33 @@ class MyGamesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val adapterGames = SmallGamesAdapter(
-            arrayOf(
-                BoardGame(1, "Монополия", "", 4, 2, "", ""),
-                BoardGame(1, "Дженга", "", 4, 2, "", ""),
-                BoardGame(1, "UNO", "", 4, 2, "", ""),
-            ), TypeOfGameList.MY
+            viewModel.getUsersGames(),
+            TypeOfGameList.MY,
+            findNavController(),
+            viewModel
         )
 
         val itemDecor = DividerItemDecoration(context, 1)
         binding.recyclerViewMyGames.addItemDecoration(itemDecor)
-
         binding.recyclerViewMyGames.layoutManager = LinearLayoutManager(context)
         binding.recyclerViewMyGames.adapter = adapterGames
+
+
+        viewModel.deleteGameResponse.observe(viewLifecycleOwner, {
+            when (it) {
+                is Request.Success -> {
+                    viewModel.user.games?.remove(it.value.id)
+                    adapterGames.setNewData(viewModel.getUsersGames())
+                    Toast.makeText(context, "Игра удалена", Toast.LENGTH_SHORT).show()
+                    viewModel.deleteGameResponse = MutableLiveData()
+                }
+                is Request.Failure -> {
+                    Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
+                }
+                else -> {
+                }
+            }
+        })
 
         binding.imageViewAddNewGame.setOnClickListener {
             findNavController().navigate(R.id.action_myGamesFragment_to_addNewGameFragment)
