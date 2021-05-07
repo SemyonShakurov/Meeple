@@ -25,7 +25,6 @@
 
         <activity
             android:name=".ui.main.MenuActivity"
-            android:noHistory="true"
             android:screenOrientation="portrait" />
 
         <activity

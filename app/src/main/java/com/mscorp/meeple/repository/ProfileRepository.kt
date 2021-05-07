@@ -1,5 +1,9 @@
 package com.mscorp.meeple.repository
 
+import com.mscorp.meeple.model.UploadRequestBody
+import okhttp3.MultipartBody
+import java.io.File
+
 class ProfileRepository() : BaseRepository() {
 
     suspend fun declineFriendRequest(id: Int, friendId: Int) =
@@ -20,4 +24,15 @@ class ProfileRepository() : BaseRepository() {
     suspend fun addGame(id: Int, gameId: Int) = safeApiCall { api.addGame(id, gameId) }
 
     suspend fun deleteGame(id: Int, gameId: Int) = safeApiCall { api.deleteGame(id, gameId) }
+
+    suspend fun uploadAvatar(
+        id: Int,
+        file: File,
+        body: UploadRequestBody
+    ) = safeApiCall {
+        api.uploadAvatar(
+            id,
+            MultipartBody.Part.createFormData("file", file.name, body)
+        )
+    }
 }

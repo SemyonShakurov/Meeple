@@ -1,9 +1,7 @@
 package com.mscorp.meeple.api
 
-import com.mscorp.meeple.model.BoardGame
-import com.mscorp.meeple.model.Event
-import com.mscorp.meeple.model.User
-import com.mscorp.meeple.model.UserFriends
+import com.mscorp.meeple.model.*
+import okhttp3.MultipartBody
 import retrofit2.http.*
 
 interface Api {
@@ -93,4 +91,11 @@ interface Api {
 
     @PUT("games/removeGame")
     suspend fun deleteGame(@Query("userId") id: Int, @Query("gameId") gameID: Int) : BoardGame
+
+    @Multipart
+    @POST("user/uploadAvatar")
+    suspend fun uploadAvatar(
+        @Query("id") id: Int,
+        @Part file: MultipartBody.Part,
+    ): User
 }
