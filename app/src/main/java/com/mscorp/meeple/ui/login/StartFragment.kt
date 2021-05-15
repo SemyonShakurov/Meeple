@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.observe
 import com.airbnb.lottie.LottieAnimationView
 import com.mscorp.meeple.R
 import com.mscorp.meeple.databinding.FragmentStartBinding
@@ -67,8 +68,7 @@ class StartFragment : Fragment() {
         else
             binding.progressBar
 
-
-        viewModel.loginResponse.observe(viewLifecycleOwner, {
+        viewModel.loginResponse.observe(viewLifecycleOwner) {
             if (it is Request.Loading)
                 progressBar.visibility = View.VISIBLE
             else
@@ -86,19 +86,18 @@ class StartFragment : Fragment() {
             } else if (it is Request.Failure) {
                 Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
             }
-        })
+        }
 
-
-        viewModel.friendsResponse.observe(viewLifecycleOwner, {
+        viewModel.friendsResponse.observe(viewLifecycleOwner) {
             if (it is Request.Success) {
                 userFriends = it.value
                 viewModel.getAllGames()
             } else if (it is Request.Failure) {
                 Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
             }
-        })
+        }
 
-        viewModel.gamesResponse.observe(viewLifecycleOwner, {
+        viewModel.gamesResponse.observe(viewLifecycleOwner) {
             if (it is Request.Loading)
                 progressBar.visibility = View.VISIBLE
             else {
@@ -111,7 +110,7 @@ class StartFragment : Fragment() {
                     login(listOf())
                 }
             }
-        })
+        }
 
     }
 

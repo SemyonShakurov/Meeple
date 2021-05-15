@@ -28,11 +28,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         return inflater.inflate(R.layout.fragment_map, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val llBottomSheet = activity?.findViewById<ConstraintLayout>(R.id.bottom_sheet)
+      /*  val llBottomSheet = activity?.findViewById<ConstraintLayout>(R.id.bottom_sheet)
         val bottomSheetBehavior = BottomSheetBehavior.from(llBottomSheet!!)
 
         activity?.findViewById<FloatingActionButton>(R.id.floatingActionButtonFilter)
@@ -41,7 +40,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     BottomSheetBehavior.STATE_EXPANDED -> BottomSheetBehavior.STATE_HIDDEN
                     else -> BottomSheetBehavior.STATE_EXPANDED
                 }
-            }
+            }*/
 
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment

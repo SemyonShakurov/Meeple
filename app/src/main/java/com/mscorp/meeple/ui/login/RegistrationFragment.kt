@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.lifecycle.observe
 import com.mscorp.meeple.R
 import com.mscorp.meeple.model.Request
 import com.mscorp.meeple.databinding.FragmentRegistrationBinding
@@ -54,7 +55,7 @@ class RegistrationFragment : Fragment() {
             activity?.supportFragmentManager?.popBackStack()
         }
 
-        viewModel.loginResponse.observe(viewLifecycleOwner, {
+        viewModel.loginResponse.observe(viewLifecycleOwner) {
             when (it) {
                 is Request.Failure -> {
                     Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
@@ -77,6 +78,6 @@ class RegistrationFragment : Fragment() {
                 }
                 is Request.Loading -> binding.progressBarRegister.visibility = View.VISIBLE
             }
-        })
+        }
     }
 }

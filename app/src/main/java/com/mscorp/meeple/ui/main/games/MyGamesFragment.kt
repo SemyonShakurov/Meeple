@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -47,7 +48,8 @@ class MyGamesFragment : Fragment() {
         binding.recyclerViewMyGames.adapter = adapterGames
 
 
-        viewModel.deleteGameResponse.observe(viewLifecycleOwner, {
+        viewModel.addGameResponse.observe(viewLifecycleOwner){}
+        viewModel.deleteGameResponse.observe(viewLifecycleOwner) {
             when (it) {
                 is Request.Success -> {
                     viewModel.user.games?.remove(it.value.id)
@@ -61,7 +63,7 @@ class MyGamesFragment : Fragment() {
                 else -> {
                 }
             }
-        })
+        }
 
         binding.imageViewAddNewGame.setOnClickListener {
             findNavController().navigate(R.id.action_myGamesFragment_to_addNewGameFragment)

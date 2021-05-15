@@ -130,7 +130,11 @@
             app:popExitAnim="@anim/fragment_fade_exit"/>
         <action
             android:id="@+id/action_myGamesFragment_to_gameDetailedFragment"
-            app:destination="@id/gameDetailedFragment" />
+            app:destination="@id/gameDetailedFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
     </fragment>
     <fragment
         android:id="@+id/addNewGameFragment"
@@ -201,10 +205,18 @@
             app:argType="com.mscorp.meeple.model.User" />
         <action
             android:id="@+id/action_friendDetailedFragment_to_myFriendsFragment"
-            app:destination="@id/myFriendsFragment" />
+            app:destination="@id/myFriendsFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
         <action
             android:id="@+id/action_friendDetailedFragment_to_addNewFriendsFragment"
-            app:destination="@id/addNewFriendsFragment" />
+            app:destination="@id/addNewFriendsFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
     </fragment>
 
     <fragment
@@ -249,7 +261,14 @@
         tools:layout="@layout/fragment_event" >
         <action
             android:id="@+id/action_eventFragment_to_navigation_events"
-            app:destination="@id/navigation_events" />
+            app:destination="@id/navigation_events"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
+        <argument
+            android:name="event"
+            app:argType="com.mscorp.meeple.model.Event" />
     </fragment>
 
 </navigation>

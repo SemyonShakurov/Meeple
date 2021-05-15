@@ -1,12 +1,14 @@
 package com.mscorp.meeple.ui.main.games
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -17,6 +19,7 @@ import com.mscorp.meeple.databinding.FragmentAddNewGameBinding
 import com.mscorp.meeple.model.Request
 import com.mscorp.meeple.model.TypeOfGameList
 import com.mscorp.meeple.ui.viewmodel.UserViewModel
+import java.util.*
 
 class AddNewGameFragment : Fragment() {
 
@@ -51,7 +54,31 @@ class AddNewGameFragment : Fragment() {
         binding.recyclerViewNewGAmes.layoutManager = LinearLayoutManager(this.context)
         binding.recyclerViewNewGAmes.adapter = adapterGames
 
-        viewModel.addGameResponse.observe(viewLifecycleOwner, {
+        binding.searchViewGames.setOnClickListener {
+            binding.searchViewGames.onActionViewExpanded()
+        }
+
+        binding.searchViewGames.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                val query = binding.searchViewGames.query.toString().toLowerCase(Locale.ROOT)
+                if (query.isBlank())
+                    adapterGames.setNewData(viewModel.getNotUsersGames())
+                else {
+                    val copy = viewModel.getNotUsersGames().filter {
+                        it.name.toLowerCase(Locale.ROOT).startsWith(query)
+                    }
+                    adapterGames.setNewData(copy)
+                }
+                return false
+            }
+
+        })
+
+        viewModel.addGameResponse.observe(viewLifecycleOwner) {
             when (it) {
                 is Request.Success -> {
                     viewModel.user.games?.add(it.value.id)
@@ -65,6 +92,6 @@ class AddNewGameFragment : Fragment() {
                 else -> {
                 }
             }
-        })
+        }
     }
 }

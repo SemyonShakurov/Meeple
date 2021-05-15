@@ -35,6 +35,7 @@ class EventsAdapter(
             titleTextView.text = event.title
             val date = Date(event.date.toLong() * 1000L)
             dateTextView.text = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.US).format(date)
+
         }
     }
 

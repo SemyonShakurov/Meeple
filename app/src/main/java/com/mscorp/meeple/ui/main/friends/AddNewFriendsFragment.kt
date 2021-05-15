@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -78,7 +79,7 @@ class AddNewFriendsFragment : Fragment() {
 
         viewModel.getAllUsers()
 
-        viewModel.acceptFriendRequestResponse.observe(viewLifecycleOwner, {
+        viewModel.acceptFriendRequestResponse.observe(viewLifecycleOwner) {
             if (it is Request.Success) {
                 viewModel.userFriends.declined.remove(it.value)
                 viewModel.userFriends.received.remove(it.value)
@@ -91,9 +92,9 @@ class AddNewFriendsFragment : Fragment() {
             } else if (it is Request.Failure) {
                 Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
             }
-        })
+        }
 
-        viewModel.sendFriendRequestResponse.observe(viewLifecycleOwner, {
+        viewModel.sendFriendRequestResponse.observe(viewLifecycleOwner) {
             if (it is Request.Loading)
                 binding.progressBarNewFriends.visibility = View.VISIBLE
             else {
@@ -107,9 +108,9 @@ class AddNewFriendsFragment : Fragment() {
                     Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
                 }
             }
-        })
+        }
 
-        viewModel.getAllUsersResponse.observe(viewLifecycleOwner, {
+        viewModel.getAllUsersResponse.observe(viewLifecycleOwner) {
             if (it is Request.Loading)
                 binding.progressBarNewFriends.visibility = View.VISIBLE
             else {
@@ -126,7 +127,7 @@ class AddNewFriendsFragment : Fragment() {
                     Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
                 }
             }
-        })
+        }
 
         val itemDecor = DividerItemDecoration(context, 1)
         binding.recyclerViewNewFriends.addItemDecoration(itemDecor)

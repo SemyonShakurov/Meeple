@@ -10,11 +10,10 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
+import com.airbnb.lottie.LottieAnimationView
 import com.mscorp.meeple.R
-import com.mscorp.meeple.model.Request
-import com.mscorp.meeple.model.SecurePreferences
-import com.mscorp.meeple.model.User
-import com.mscorp.meeple.model.UserFriends
+import com.mscorp.meeple.model.*
 import com.mscorp.meeple.ui.main.MenuActivity
 import com.mscorp.meeple.ui.viewmodel.LoginViewModel
 import com.mscorp.meeple.ui.viewmodel.RegistrationViewModel
@@ -23,6 +22,7 @@ import java.lang.NumberFormatException
 class ConfirmCodeFragment : Fragment() {
 
     private var user: User? = null
+    private var userFriends: UserFriends? = null
     private lateinit var registrationViewModel: RegistrationViewModel
     private val viewModel = LoginViewModel()
 
@@ -66,6 +66,13 @@ class ConfirmCodeFragment : Fragment() {
             }
         }
 
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         registrationViewModel.loginResponse.observe(viewLifecycleOwner) {
             when (it) {
                 is Request.Failure -> {
@@ -88,14 +95,9 @@ class ConfirmCodeFragment : Fragment() {
                 }
             }
         }
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         if (!arguments?.getBoolean(BOOLEAN_KEY)!!) {
-            viewModel.friendsResponse.observe(viewLifecycleOwner, {
+            viewModel.friendsResponse.observe(viewLifecycleOwner) {
                 if (it is Request.Success) {
                     val preferences =
                         SecurePreferences(
@@ -106,18 +108,29 @@ class ConfirmCodeFragment : Fragment() {
                         )
                     preferences.put("userId", user?.nickname)
                     preferences.put("pass", arguments?.getString(PASS_KEY)!!)
-                    login(it.value)
+                    userFriends = it.value
+                    viewModel.getAllGames()
                 } else if (it is Request.Failure) {
                     Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
                 }
-            })
+            }
         }
+        viewModel.gamesResponse.observe(viewLifecycleOwner) {
+            if (it is Request.Success) {
+                login(it.value)
+            } else if (it is Request.Failure) {
+                Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
+                login(listOf())
+            }
+        }
+
     }
 
-    fun login(userFriends: UserFriends) {
+    fun login(boardGames: List<BoardGame>) {
         val intent = Intent(context, MenuActivity::class.java)
         intent.putExtra("user", user)
         intent.putExtra("friends", userFriends)
+        intent.putExtra("games", BoardGames(boardGames))
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
     }

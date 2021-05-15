@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -69,7 +70,7 @@ class MyFriendsFragment : Fragment() {
         binding.recyclerViewRequests.layoutManager = LinearLayoutManager(context)
         binding.recyclerViewRequests.adapter = adapterRequests
 
-        viewModel.declineFriendRequestResponse.observe(viewLifecycleOwner, {
+        viewModel.declineFriendRequestResponse.observe(viewLifecycleOwner) {
             if (it is Request.Success) {
                 viewModel.userFriends.received.remove(it.value)
                 viewModel.userFriends.declined.add(it.value)
@@ -82,9 +83,9 @@ class MyFriendsFragment : Fragment() {
             } else if (it is Request.Failure) {
                 Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
             }
-        })
+        }
 
-        viewModel.deleteFriendRequestResponse.observe(viewLifecycleOwner, {
+        viewModel.deleteFriendRequestResponse.observe(viewLifecycleOwner) {
             if (it is Request.Success) {
                 viewModel.userFriends.friends.remove(it.value)
                 viewModel.userFriends.declined.add(it.value)
@@ -97,9 +98,9 @@ class MyFriendsFragment : Fragment() {
             } else if (it is Request.Failure) {
                 Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
             }
-        })
+        }
 
-        viewModel.acceptFriendRequestResponse.observe(viewLifecycleOwner, {
+        viewModel.acceptFriendRequestResponse.observe(viewLifecycleOwner) {
             if (it is Request.Success) {
                 viewModel.userFriends.received.remove(it.value)
                 viewModel.userFriends.friends.add(it.value)
@@ -113,16 +114,16 @@ class MyFriendsFragment : Fragment() {
             } else if (it is Request.Failure) {
                 Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
             }
-        })
+        }
 
 
-        viewModelLogin.friendsResponse.observe(viewLifecycleOwner, {
+        viewModelLogin.friendsResponse.observe(viewLifecycleOwner) {
             if (it is Request.Success) {
                 val bundle = Bundle()
                 bundle.putSerializable("user", clickedUser)
                 bundle.putSerializable("friends", it.value)
                 bundle.putSerializable("back", R.id.action_friendDetailedFragment_to_myFriendsFragment)
-                   if (findNavController().currentDestination?.id == R.id.myFriendsFragment)
+                if (findNavController().currentDestination?.id == R.id.myFriendsFragment)
                     findNavController().navigate(
                         R.id.action_myFriendsFragment_to_friendDetailedFragment,
                         bundle
@@ -130,7 +131,7 @@ class MyFriendsFragment : Fragment() {
             } else if (it is Request.Failure) {
                 Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
             }
-        })
+        }
 
     }
 

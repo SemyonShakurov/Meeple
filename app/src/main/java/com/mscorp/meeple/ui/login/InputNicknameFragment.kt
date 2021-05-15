@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import com.mscorp.meeple.R
 import com.mscorp.meeple.model.Request
 import com.mscorp.meeple.ui.viewmodel.RegistrationViewModel

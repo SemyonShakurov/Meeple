@@ -37,6 +37,7 @@ class EventsFragment : Fragment(), Observer<List<Event>> {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentEventsBinding.inflate(inflater)
+
         binding.imageAddEvent.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_events_to_addNewEventFragment)
         }
