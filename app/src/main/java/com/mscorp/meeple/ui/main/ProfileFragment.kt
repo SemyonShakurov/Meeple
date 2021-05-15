@@ -1,7 +1,12 @@
 package com.mscorp.meeple.ui.main
 
+import android.app.Activity
+import android.content.ContentResolver
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.provider.OpenableColumns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +23,7 @@ import com.mscorp.meeple.ui.adapters.SmallGamesAdapter
 import com.mscorp.meeple.ui.login.LoginActivity
 import com.mscorp.meeple.ui.viewmodel.UserViewModel
 import com.squareup.picasso.Picasso
-
+import java.io.*
 class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
@@ -75,6 +80,9 @@ class ProfileFragment : Fragment() {
             val intent = Intent(context, LoginActivity::class.java)
             startActivity(intent)
         }
+        binding.roundedImageViewAvatarProfile.setOnClickListener {
+            openImageChooser()
+        }
     }
 
     private fun setupAdapters() {
@@ -109,5 +117,57 @@ class ProfileFragment : Fragment() {
         binding.recyclerGames.addItemDecoration(itemDecor)
         binding.recyclerGames.layoutManager = LinearLayoutManager(this.context)
         binding.recyclerGames.adapter = adapterGames
+    }
+
+    private fun openImageChooser() {
+        val intent = Intent(
+            Intent.ACTION_PICK,
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        )
+        startActivityForResult(intent, REQUEST_CODE_IMAGE_PICKER)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                REQUEST_CODE_IMAGE_PICKER -> {
+                    val selectedImage = data?.data
+                    binding.roundedImageViewAvatarProfile.setImageURI(selectedImage)
+                    uploadImage(selectedImage)
+                }
+            }
+        }
+    }
+
+    private fun uploadImage(selectedImage: Uri?) {
+        if (selectedImage == null)
+            return
+
+        val activity = requireActivity()
+        val parcelFileDescriptor =
+            activity.contentResolver.openFileDescriptor(selectedImage, "r", null) ?: return
+        val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
+        val file = File(activity.cacheDir, getFileName(activity.contentResolver, selectedImage))
+        val outputStream = FileOutputStream(file)
+        inputStream.copyTo(outputStream)
+
+        val body = UploadRequestBody(file, "image")
+
+        viewModel.uploadAvatar(file, body)
+    }
+
+    private fun getFileName(contentResolver: ContentResolver, uri: Uri): String {
+        var name = ""
+        val cursor = contentResolver.query(uri, null, null, null, null)
+        cursor?.use {
+            it.moveToFirst()
+            name = cursor.getString(it.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+        }
+        return name
+    }
+
+    companion object {
+        private const val REQUEST_CODE_IMAGE_PICKER = 100
     }
 }

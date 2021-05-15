@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.mscorp.meeple.model.*
 import com.mscorp.meeple.repository.ProfileRepository
 import kotlinx.coroutines.launch
+import java.io.File
 
 class UserViewModel : ViewModel() {
     lateinit var user: User
@@ -86,4 +87,12 @@ class UserViewModel : ViewModel() {
     }
 
 
+    fun uploadAvatar(file: File, body: UploadRequestBody) {
+        viewModelScope.launch {
+            val request: Request<User> =  repository.uploadAvatar(user.id, file, body)
+            if (request is Request.Success) {
+                user = request.value
+            }
+        }
+    }
 }
