@@ -90,17 +90,6 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/imageViewFriendsInfo"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginEnd="25dp"
-                    android:padding="6dp"
-                    android:src="@drawable/ic_get_more_info"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageViewFriendsUser"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/imageViewFriendsUser" />
-
-                <ImageView
                     android:id="@+id/imageViewFriendsUser"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
@@ -171,17 +160,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp">
-
-                <ImageView
-                    android:id="@+id/imageViewGamesInfoUser"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginEnd="25dp"
-                    android:padding="6dp"
-                    android:src="@drawable/ic_get_more_info"
-                    app:layout_constraintBottom_toBottomOf="@+id/textViewGamesUser"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textViewGamesUser" />
 
                 <ImageView
                     android:id="@+id/imageViewGamesUser"

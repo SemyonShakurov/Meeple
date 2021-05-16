@@ -19,10 +19,12 @@ import androidx.lifecycle.observe
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -210,6 +212,7 @@ class AddNewEventFragment : Fragment() {
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                     )!!
                 }
+                it.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(55.756117, 37.621147), 12F))
             }
 
             val butBack = dialog.findViewById<ImageView>(R.id.imageViewBackFromMyFriends2)

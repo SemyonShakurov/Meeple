@@ -52,8 +52,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 )
             }
         }
-
-
     }
 
     override fun onMapReady(p0: GoogleMap?) {

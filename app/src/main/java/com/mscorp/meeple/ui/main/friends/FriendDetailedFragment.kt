@@ -64,26 +64,28 @@ class FriendDetailedFragment : Fragment() {
 
         binding.textViewGamesNotFoundUser.visibility = View.VISIBLE
 
-        val adapterFriends = SmallFiendsAdapter(friends.friends.take(3))
+        val adapterFriends = SmallFiendsAdapter(friends.friends)
         val itemDecor = DividerItemDecoration(context, 1)
         binding.recyclerFiends.addItemDecoration(itemDecor)
         binding.recyclerFiends.layoutManager = LinearLayoutManager(this.context)
         binding.recyclerFiends.adapter = adapterFriends
 
         //Игры
-        if (viewModel.user.games.isNullOrEmpty())
+        if (user.games.isNullOrEmpty())
             binding.textViewGamesNotFoundUser.visibility = View.VISIBLE
         else
             binding.textViewGamesNotFoundUser.visibility = View.INVISIBLE
 
         val adapterGames =
-            SmallGamesAdapter(listOf(), TypeOfGameList.SMALL, findNavController(), viewModel)
+            SmallGamesAdapter(viewModel.games.filter { user.games!!.contains(it.id) },
+                TypeOfGameList.SMALL,
+                findNavController(),
+                viewModel)
 
         binding.recyclerGamesUser.addItemDecoration(itemDecor)
         binding.recyclerGamesUser.layoutManager = LinearLayoutManager(this.context)
         binding.recyclerGamesUser.adapter = adapterGames
     }
-
 
     private fun setupOnCLickListeners() {
 

@@ -17,13 +17,11 @@ import com.mscorp.meeple.ui.main.MenuActivity
 import com.mscorp.meeple.ui.viewmodel.LoginViewModel
 
 class StartFragment : Fragment() {
-
     private var user: User? = null
     private var userFriends: UserFriends? = null
     private lateinit var binding: FragmentStartBinding
     private val viewModel = LoginViewModel()
     private var havAcc: Boolean = false
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +42,6 @@ class StartFragment : Fragment() {
         }
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -62,7 +59,6 @@ class StartFragment : Fragment() {
     }
 
     private fun setupObservers(view: View) {
-
         val progressBar = if (havAcc)
             view.findViewById(R.id.progressBarLoggin)
         else
@@ -114,7 +110,6 @@ class StartFragment : Fragment() {
 
     }
 
-
     private fun setOnClicks() {
         binding.NoAccountTextView.setOnClickListener {
             activity?.supportFragmentManager
@@ -165,5 +160,4 @@ class StartFragment : Fragment() {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
     }
-
 }

@@ -13,14 +13,12 @@ abstract class BaseRepository() {
 
     suspend fun <T> safeApiCall(
         apiCall: suspend () -> T
-    ) : Request<T> =
-        //Переходим корутину в паралдлельный поток
-         withContext(Dispatchers.IO){
+    ): Request<T> =
+        //Переходим корутину в параллельный поток
+        withContext(Dispatchers.IO) {
             try {
-                val x = apiCall.invoke()
-                Request.Success(x)
-            }
-            catch (throwable: Throwable) {
+                Request.Success(apiCall.invoke())
+            } catch (throwable: Throwable) {
                 when (throwable) {
                     is HttpException -> {
                         val mesJson = throwable.response()?.errorBody()?.string()

@@ -68,11 +68,11 @@ class EventFragment : Fragment(), OnMapReadyCallback {
         binding.textView19.text = DateFormat.format("dd.MM.yyyy; HH:mm", event.date).toString()
         binding.textView21.text = event.count
         when (event.playersLevel) {
-            1 -> binding.view7.backgroundTintList =
+            0 -> binding.view7.backgroundTintList =
                 AppCompatResources.getColorStateList(requireContext(), R.color.black)
-            2 -> binding.view6.backgroundTintList =
+            1 -> binding.view6.backgroundTintList =
                 AppCompatResources.getColorStateList(requireContext(), R.color.black)
-            3 -> binding.view8.backgroundTintList =
+            2 -> binding.view8.backgroundTintList =
                 AppCompatResources.getColorStateList(requireContext(), R.color.black)
         }
         val builder = StringBuilder()
@@ -107,7 +107,7 @@ class EventFragment : Fragment(), OnMapReadyCallback {
                 is Request.Success -> {
                     MaterialAlertDialogBuilder(requireContext())
                         .setTitle("Вы записаны!")
-                        .setPositiveButton("OK"){ _ , _ ->
+                        .setPositiveButton("OK") { _, _ ->
                             findNavController().navigate(R.id.action_eventFragment_to_navigation_events)
                         }.show()
                     userViewModel.subscribeEventResponse.value = null
@@ -124,7 +124,7 @@ class EventFragment : Fragment(), OnMapReadyCallback {
                 is Request.Success -> {
                     MaterialAlertDialogBuilder(requireContext())
                         .setTitle("Вы больше участвуете в данном мероприятии")
-                        .setPositiveButton("OK"){ _ , _ ->
+                        .setPositiveButton("OK") { _, _ ->
                             findNavController().navigate(R.id.action_eventFragment_to_navigation_events)
                         }.show()
                     userViewModel.unsubscribeEventResponse.value = null

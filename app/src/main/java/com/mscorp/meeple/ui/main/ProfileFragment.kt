@@ -43,8 +43,7 @@ class ProfileFragment : Fragment() {
             viewModel.user = requireArguments().get("user") as User
             viewModel.userFriends = requireArguments().get("friends") as UserFriends
             viewModel.games = (requireArguments().get("games") as BoardGames).games
-        } catch (ignored: Exception) {
-        }
+        } catch (ignored: Exception) { }
 
         setupViews()
         setupAdapters()
