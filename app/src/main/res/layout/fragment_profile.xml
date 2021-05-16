@@ -24,17 +24,17 @@
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/roundedImageViewAvatarProfile"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
             android:layout_marginTop="32dp"
-            android:scaleType="fitCenter"
+            android:scaleType="centerCrop"
             android:src="@drawable/profile_test"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewProfile"
             app:riv_border_color="@color/orange_main"
             app:riv_border_width="2dip"
-            app:riv_corner_radius="50dp"
+            app:riv_corner_radius="70dp"
             app:riv_mutate_background="true" />
 
         <TextView
