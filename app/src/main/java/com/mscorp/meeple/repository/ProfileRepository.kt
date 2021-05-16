@@ -2,6 +2,7 @@ package com.mscorp.meeple.repository
 
 import com.mscorp.meeple.model.UploadRequestBody
 import okhttp3.MultipartBody
+import retrofit2.http.Query
 import java.io.File
 
 class ProfileRepository() : BaseRepository() {
@@ -34,5 +35,19 @@ class ProfileRepository() : BaseRepository() {
             id,
             MultipartBody.Part.createFormData("file", file.name, body)
         )
+    }
+
+    suspend fun unsubscribeFromEvent(
+        eventId: Int,
+        userId: Int
+    ) = safeApiCall {
+        api.unsubscribeFromEvent(eventId, userId)
+    }
+
+    suspend fun subscribeToEvent(
+        eventId: Int,
+        userId: Int
+    ) = safeApiCall {
+        api.subscribeToEvent(eventId, userId)
     }
 }

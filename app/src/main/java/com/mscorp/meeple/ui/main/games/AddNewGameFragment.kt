@@ -84,7 +84,7 @@ class AddNewGameFragment : Fragment() {
                     viewModel.user.games?.add(it.value.id)
                     adapterGames.setNewData(viewModel.getNotUsersGames())
                     Toast.makeText(context, "Игра добавлена", Toast.LENGTH_SHORT).show()
-                    viewModel.addGameResponse = MutableLiveData()
+                    viewModel.addGameResponse.value = null
                 }
                 is Request.Failure -> {
                     Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()

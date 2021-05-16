@@ -11,9 +11,13 @@ import android.view.Window
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.ListView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -27,6 +31,8 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.mscorp.meeple.R
 import com.mscorp.meeple.databinding.FragmentAddEventBinding
+import com.mscorp.meeple.model.BoardGame
+import com.mscorp.meeple.model.Request
 import com.mscorp.meeple.ui.viewmodel.EventsViewModel
 import com.mscorp.meeple.ui.viewmodel.UserViewModel
 import java.util.*
@@ -39,12 +45,10 @@ class AddNewEventFragment : Fragment() {
     private var date: Long = 0L
     private lateinit var lastCodrs: Marker
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         eventsViewModel = ViewModelProvider(this).get(EventsViewModel::class.java)
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,9 +62,23 @@ class AddNewEventFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setOnClickListeners()
+        eventsViewModel.loadEvents()
+        eventsViewModel.createEventLiveData.observe(viewLifecycleOwner) {
+            if (it is Request.Success)
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Событие создано!")
+                    .setPositiveButton("ОК") { dialog, which ->
+                        findNavController().navigate(R.id.action_navigation_addNewEvent_to_events)
+                    }
+                    .show()
+        }
     }
 
     private fun setOnClickListeners() {
+        binding.imageViewBackFromAddNewEvent.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_addNewEvent_to_events)
+        }
+
         binding.imageViewMenuLevel.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Выберите уровень игроков")
@@ -153,7 +171,7 @@ class AddNewEventFragment : Fragment() {
                         timePicker.minute
                     )
                     binding.textViewSelectedDate.text =
-                        DateFormat.format("dd.MM.yyyy; hh:mm", calendar).toString()
+                        DateFormat.format("dd.MM.yyyy; HH:mm", calendar).toString()
                     date = calendar.time.time
                 }
                 timePicker.show(requireActivity().supportFragmentManager, "")
@@ -178,8 +196,10 @@ class AddNewEventFragment : Fragment() {
             mMapView.onCreate(dialog.onSaveInstanceState())
             mMapView.onResume()
 
+
             mMapView.getMapAsync {
                 googleMap = it
+                it.uiSettings.isZoomControlsEnabled = true
                 it.setOnMapClickListener {
                     if (::lastCodrs.isInitialized)
                         lastCodrs.remove()
@@ -199,39 +219,47 @@ class AddNewEventFragment : Fragment() {
 
             val butAccept = dialog.findViewById<Button>(R.id.buttonBackFromMap)
             butAccept?.setOnClickListener {
-                binding.textViewSelectedPlace.text = "Место выбрано"
-                dialog.hide()
+                if (this::lastCodrs.isInitialized) {
+                    binding.textViewSelectedPlace.text = "Место выбрано"
+                    dialog.hide()
+                }
             }
 
             dialog.show()
         }
 
-    }
-
-    private fun addNewEvent(view: View) {
-        /*  val title = view.findViewById<EditText>(R.id.editText_title).text.toString()
-          val datePicker = view.findViewById<DatePicker>(R.id.date_picker)
-
-          val day = datePicker.dayOfMonth
-          val month = datePicker.month
-          val year = datePicker.year
-          val calendar = Calendar.getInstance()
-          calendar.set(year, month, day)
-          val time = (calendar.time.time / 1000).toInt()
-
-          eventsViewModel.addEvent(
-              title,
-              1,
-              listOf(1),
-              1,
-              1,
-              "",
-              time,
-              1,
-              listOf(userViewModel.user.id),
-              userViewModel.user.id
-          )
-
-          findNavController().navigate(R.id.action_navigation_addNewEvent_to_events)*/
+        binding.button.setOnClickListener {
+            val list = userViewModel.userFriends.friends.filter {
+                binding.textViewSelectedFriends.text.split(", ").contains(it.nickname)
+            }.map { it.id }.toMutableList()
+            list.add(userViewModel.user.id)
+            try {
+                eventsViewModel.addEvent(
+                    binding.editTextTitle.text.trim().toString(),
+                    binding.editTextCountOfPlayers.text.trim().toString(),
+                    userViewModel.games.filter {
+                        binding.textViewSelectedGames.text.toString().split(", ").contains(it.name)
+                    }.map { it.id },
+                    when (binding.textViewLevelOfPlayers.text) {
+                        "easy" -> 0
+                        "medium" -> 1
+                        "professional" -> 2
+                        else -> 0
+                    },
+                    binding.editTextTitle2.text.toString(),
+                    date,
+                    list,
+                    lastCodrs.position.latitude,
+                    lastCodrs.position.longitude,
+                    userViewModel.user.id
+                )
+            } catch (ex: Exception) {
+                Toast.makeText(
+                    context,
+                    "Проверьте корректность заполнения полей!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 }

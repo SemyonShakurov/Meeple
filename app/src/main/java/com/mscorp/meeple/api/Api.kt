@@ -49,14 +49,14 @@ interface Api {
     @POST("events/addEvent")
     suspend fun addEvent(
         @Field("title") title: String,
-        @Field("count") count: Int,
+        @Field("count") count: String,
         @Field("games") games: List<Int>,
         @Field("playersLevel") playersLevel: Int,
-        @Field("type") type: Int,
         @Field("info") info: String,
-        @Field("date") date: Int,
-        @Field("access") access: Int,
+        @Field("date") date: Long,
         @Field("members") members: List<Int>,
+        @Field("lat") lat: Double,
+        @Field("lng") lng: Double,
         @Field("creatorId") creatorId: Int
     ): Event
 
@@ -87,10 +87,10 @@ interface Api {
     suspend fun getAllGames(): List<BoardGame>
 
     @PUT("games/addGame")
-    suspend fun addGame(@Query("userId") id: Int, @Query("gameId") gameID: Int) : BoardGame
+    suspend fun addGame(@Query("userId") id: Int, @Query("gameId") gameID: Int): BoardGame
 
     @PUT("games/removeGame")
-    suspend fun deleteGame(@Query("userId") id: Int, @Query("gameId") gameID: Int) : BoardGame
+    suspend fun deleteGame(@Query("userId") id: Int, @Query("gameId") gameID: Int): BoardGame
 
     @Multipart
     @POST("user/uploadAvatar")
@@ -98,4 +98,18 @@ interface Api {
         @Query("id") id: Int,
         @Part file: MultipartBody.Part,
     ): User
+
+
+    @PUT("events/subscribeToEvent")
+    suspend fun subscribeToEvent(
+        @Query("eventId") eventId: Int,
+        @Query("userId") userId: Int
+    ): Event
+
+    @PUT("events/unsubscribeFromEvent")
+    suspend fun unsubscribeFromEvent(
+        @Query("eventId") eventId: Int,
+        @Query("userId") userId: Int
+    ): Event
+
 }

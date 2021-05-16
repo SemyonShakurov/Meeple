@@ -88,7 +88,7 @@ class AddNewFriendsFragment : Fragment() {
                 adapter.dataSet.remove(it.value)
                 adapter.notifyDataSetChanged()
                 Toast.makeText(context, "Запрос в друзья одобрен", Toast.LENGTH_SHORT).show()
-                viewModel.acceptFriendRequestResponse = MutableLiveData()
+                viewModel.acceptFriendRequestResponse.value = null
             } else if (it is Request.Failure) {
                 Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
             }
@@ -103,7 +103,7 @@ class AddNewFriendsFragment : Fragment() {
                     viewModel.userFriends.sent.add(it.value)
                     adapter.notifyDataSetChanged()
                     Toast.makeText(context, "Запрос в друзья отправлен", Toast.LENGTH_SHORT).show()
-                    viewModel.sendFriendRequestResponse = MutableLiveData()
+                    viewModel.sendFriendRequestResponse.value = null
                 } else if (it is Request.Failure) {
                     Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
                 }

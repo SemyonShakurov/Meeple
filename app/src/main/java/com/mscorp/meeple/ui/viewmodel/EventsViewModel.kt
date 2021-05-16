@@ -13,12 +13,9 @@ class EventsViewModel :  ViewModel() {
     private val eventsRepository = EventsRepository()
     private var events: MutableList<Event> = mutableListOf()
     val eventsLiveData: MutableLiveData<MutableList<Event>> = MutableLiveData()
+    val createEventLiveData: MutableLiveData<Request<Event>> = MutableLiveData()
 
-    init {
-        loadEvents()
-    }
-
-    private fun loadEvents() {
+    fun loadEvents() {
         viewModelScope.launch {
             val request: Request<List<Event>> = eventsRepository.getEvents()
             if (request is Request.Success) {
@@ -30,32 +27,33 @@ class EventsViewModel :  ViewModel() {
 
     fun addEvent(
         title: String,
-        count: Int,
+        count: String,
         games: List<Int>,
         playersLevel: Int,
-        type: Int,
         info: String,
-        date: Int,
-        access: Int,
+        date: Long,
         members: List<Int>,
+        lat: Double,
+        lng: Double,
         creatorId: Int
     ) {
         viewModelScope.launch {
-            val request: Request<Event> = eventsRepository.addEvent(
+            createEventLiveData.value = Request.Loading
+            createEventLiveData.value = eventsRepository.addEvent(
                 title,
                 count,
                 games,
                 playersLevel,
-                type,
                 info,
                 date,
-                access,
                 members,
+                lat,
+                lng,
                 creatorId
             )
-            if (request is Request.Success) {
-                events.add(request.value)
-                eventsLiveData.value = events
+            if (createEventLiveData.value is Request.Success) {
+                events.add((createEventLiveData.value as Request.Success<Event>).value)
+                eventsLiveData.value= events
             }
         }
     }

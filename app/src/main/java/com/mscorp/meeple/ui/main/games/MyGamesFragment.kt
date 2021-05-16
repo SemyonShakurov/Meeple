@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
@@ -47,18 +46,17 @@ class MyGamesFragment : Fragment() {
         binding.recyclerViewMyGames.layoutManager = LinearLayoutManager(context)
         binding.recyclerViewMyGames.adapter = adapterGames
 
-
-        viewModel.addGameResponse.observe(viewLifecycleOwner){}
         viewModel.deleteGameResponse.observe(viewLifecycleOwner) {
             when (it) {
                 is Request.Success -> {
                     viewModel.user.games?.remove(it.value.id)
                     adapterGames.setNewData(viewModel.getUsersGames())
                     Toast.makeText(context, "Игра удалена", Toast.LENGTH_SHORT).show()
-                    viewModel.deleteGameResponse = MutableLiveData()
+                    viewModel.deleteGameResponse.value = null
                 }
                 is Request.Failure -> {
                     Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
+                    viewModel.deleteGameResponse.value = null
                 }
                 else -> {
                 }

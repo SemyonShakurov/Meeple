@@ -7,29 +7,33 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.mscorp.meeple.R
 import com.mscorp.meeple.databinding.FragmentEventsBinding
 import com.mscorp.meeple.model.Event
 import com.mscorp.meeple.ui.adapters.EventsAdapter
 import com.mscorp.meeple.ui.viewmodel.EventsViewModel
+import com.mscorp.meeple.ui.viewmodel.UserViewModel
 
 class EventsFragment : Fragment(), Observer<List<Event>> {
 
     private lateinit var binding: FragmentEventsBinding
     private lateinit var eventsViewModel: EventsViewModel
-
+    private val userViewModel: UserViewModel by navGraphViewModels(R.id.mobile_navigation)
     private lateinit var adapter: EventsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         eventsViewModel = ViewModelProvider(this).get(EventsViewModel::class.java)
-        adapter = EventsAdapter(requireActivity())
+        adapter = EventsAdapter(requireActivity(),  findNavController())
     }
 
     override fun onStart() {
         super.onStart()
         eventsViewModel.eventsLiveData.observe(this, this)
+        eventsViewModel.loadEvents()
     }
 
     override fun onCreateView(
@@ -46,6 +50,8 @@ class EventsFragment : Fragment(), Observer<List<Event>> {
     }
 
     override fun onChanged(t: List<Event>?) {
-        adapter.submitList(t)
+        if (t != null) {
+            adapter.submitList(t.filter { it.members.map{ user -> user.id }.contains(userViewModel.user.id) })
+        }
     }
 }

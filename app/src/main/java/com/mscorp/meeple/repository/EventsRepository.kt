@@ -4,14 +4,14 @@ class EventsRepository : BaseRepository() {
 
     suspend fun addEvent(
         title: String,
-        count: Int,
+        count: String,
         games: List<Int>,
         playersLevel: Int,
-        type: Int,
         info: String,
-        date: Int,
-        access: Int,
+        date: Long,
         members: List<Int>,
+        lat: Double,
+        lng: Double,
         creatorId: Int
     ) = safeApiCall {
         api.addEvent(
@@ -19,11 +19,11 @@ class EventsRepository : BaseRepository() {
             count,
             games,
             playersLevel,
-            type,
             info,
             date,
-            access,
             members,
+            lat,
+            lng,
             creatorId
         )
     }

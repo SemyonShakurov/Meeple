@@ -22,6 +22,22 @@ class UserViewModel : ViewModel() {
     var declineFriendRequestResponse: MutableLiveData<Request<User>> = MutableLiveData()
     var addGameResponse: MutableLiveData<Request<BoardGame>> = MutableLiveData()
     var deleteGameResponse: MutableLiveData<Request<BoardGame>> = MutableLiveData()
+    var subscribeEventResponse: MutableLiveData<Request<Event>> = MutableLiveData()
+    var unsubscribeEventResponse: MutableLiveData<Request<Event>> = MutableLiveData()
+
+    fun subscribeEvent(eventId: Int, userId: Int) {
+        viewModelScope.launch {
+            subscribeEventResponse.value = Request.Loading
+            subscribeEventResponse.value = repository.subscribeToEvent(eventId, userId)
+        }
+    }
+
+    fun unsubscribeEvent(eventId: Int, userId: Int) {
+        viewModelScope.launch {
+            unsubscribeEventResponse.value = Request.Loading
+            unsubscribeEventResponse.value = repository.unsubscribeFromEvent(eventId, userId)
+        }
+    }
 
     fun addGameRequest(id: Int, gameId: Int) {
         viewModelScope.launch {
@@ -95,4 +111,6 @@ class UserViewModel : ViewModel() {
             }
         }
     }
+
+
 }
