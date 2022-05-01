@@ -5,31 +5,26 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 32
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.mscorp.meeple"
         minSdkVersion 23
-        targetSdkVersion 30
+        targetSdkVersion 32
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // TODO: Add proguard filters and then this will be uncommented
+            // proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     viewBinding {
         enabled = true
-    }
-
-    buildFeatures {
-        viewBinding = true
     }
 
     compileOptions {
@@ -42,56 +37,68 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.annotation:annotation:1.2.0'
-    implementation 'com.google.android.gms:play-services-maps:17.0.1'
-    implementation 'androidx.recyclerview:recyclerview:1.2.0'
-    implementation 'androidx.cardview:cardview:1.0.0'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    implementation 'com.google.android.material:material:1.4.0-alpha02'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.20"
+
+    // AndroidX libraries
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.annotation:annotation:1.3.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+    implementation 'com.google.android.material:material:1.7.0-alpha01'
 
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation "com.squareup.retrofit2:converter-moshi:2.4.0"
 
     //Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
 
     //Navigation
     def nav_version = "2.3.5"
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
-    // Feature module Support
-    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
-    // Jetpack Compose Integration
-    implementation "androidx.navigation:navigation-compose:1.0.0-alpha10"
 
+    implementation "com.airbnb.android:lottie:4.2.2"
 
-    //ROOM
-    def room_version = "2.2.6"
-    implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-    // optional - Kotlin Extensions and Coroutines support for Room
-    implementation "androidx.room:room-ktx:$room_version"
+    // GMS Map
+    // TODO: integration HMS Map or replace this with MapBox
+    implementation 'com.google.android.gms:play-services-maps:18.0.2'
 
-    implementation "com.airbnb.android:lottie:3.5.0"
+    // RxJava
+    def rx_java = "3.1.4"
+    def rx_java_android = "3.0.0"
+    def rx_java_retrofit = "3.0.0"
+    def rx_java_kotlin = "3.0.1"
+    implementation "io.reactivex.rxjava3:rxjava:$rx_java"
+    implementation "io.reactivex.rxjava3:rxkotlin:$rx_java_kotlin"
+    implementation "io.reactivex.rxjava3:rxandroid:$rx_java_android"
+    implementation "com.github.akarnokd:rxjava3-retrofit-adapter:$rx_java_retrofit"
 
+    def elmslie = "1.4.0"
+    implementation "com.github.vivid-money.elmslie:elmslie-core:$elmslie"
+    implementation "com.github.vivid-money.elmslie:elmslie-android:$elmslie"
+
+    def dagger = "2.41"
+    implementation "com.google.dagger:dagger:$dagger"
+    kapt "com.google.dagger:dagger-compiler:$dagger"
+
+    implementation "com.google.dagger:dagger-android:$dagger"
+    kapt "com.google.dagger:dagger-android-processor:$dagger"
+
+    def view_binding = "1.5.3"
+    implementation "com.github.kirich1409:viewbindingpropertydelegate:$view_binding"
 }
