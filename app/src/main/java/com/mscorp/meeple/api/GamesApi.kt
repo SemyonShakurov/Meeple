@@ -14,13 +14,13 @@ internal interface GamesApi {
     @PUT("events/subscribeToEvent")
     fun subscribeToEvent(
         @Query("eventId") eventId: Int,
-        @Query("userId") userId: Int
+        @Query("userId") userId: Int,
     ): Single<Event>
 
     @PUT("events/unsubscribeFromEvent")
     fun unsubscribeFromEvent(
         @Query("eventId") eventId: Int,
-        @Query("userId") userId: Int
+        @Query("userId") userId: Int,
     ): Single<Event>
 
     @GET("events/getAll")
@@ -33,7 +33,10 @@ internal interface GamesApi {
     fun addGame(@Query("userId") id: Int, @Query("gameId") gameID: Int): Single<BoardGame>
 
     @PUT("games/removeGame")
-    fun deleteGame(@Query("userId") id: Int, @Query("gameId") gameID: Int): Single<BoardGame>
+    fun deleteGame(
+        @Query("userId") id: Int,
+        @Query("gameId") gameID: Int,
+    ): Single<BoardGame>
 
     @FormUrlEncoded
     @POST("events/addEvent")
@@ -47,7 +50,7 @@ internal interface GamesApi {
         @Field("members") members: List<Int>,
         @Field("lat") lat: Double,
         @Field("lng") lng: Double,
-        @Field("creatorId") creatorId: Int
+        @Field("creatorId") creatorId: Int,
     ): Single<Event>
 }
 
