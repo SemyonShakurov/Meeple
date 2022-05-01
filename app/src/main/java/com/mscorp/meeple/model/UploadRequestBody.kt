@@ -1,17 +1,17 @@
 package com.mscorp.meeple.model
 
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okio.BufferedSink
 import java.io.File
 import java.io.FileInputStream
 
-class UploadRequestBody(
+internal class UploadRequestBody(
     private val file: File,
     private val contentType: String,
 ) : RequestBody() {
 
-    override fun contentType() = MediaType.parse("$contentType/*")
+    override fun contentType() = "$contentType/*".toMediaTypeOrNull()
 
     override fun contentLength() = file.length()
 

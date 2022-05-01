@@ -1,6 +1,10 @@
 package com.mscorp.meeple.di
 
-import com.mscorp.meeple.api.*
+import com.mscorp.meeple.features.core_feature.api.AuthorizationProvideModule
+import com.mscorp.meeple.features.core_feature.api.UserProvideModule
+import com.mscorp.meeple.features.event_feature.api.EventsProvideModule
+import com.mscorp.meeple.features.friend_feature.api.FriendsProvideModule
+import com.mscorp.meeple.features.games_feature.api.GamesProvideModule
 import dagger.Module
 import dagger.Provides
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
@@ -47,7 +51,6 @@ internal class NetworkModule {
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build()
     }
-
 
     companion object {
 
