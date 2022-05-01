@@ -1,4 +1,4 @@
-package com.mscorp.meeple.api
+package com.mscorp.meeple.features.games_feature.api
 
 import com.mscorp.meeple.model.BoardGame
 import com.mscorp.meeple.model.Event
@@ -30,12 +30,15 @@ internal interface GamesApi {
     fun getAllGames(): Single<List<BoardGame>>
 
     @PUT("games/addGame")
-    fun addGame(@Query("userId") id: Int, @Query("gameId") gameID: Int): Single<BoardGame>
+    fun addGame(
+        @Query("userId") id: Int,
+        @Query("gameId") gameId: Int,
+    ): Single<BoardGame>
 
     @PUT("games/removeGame")
     fun deleteGame(
         @Query("userId") id: Int,
-        @Query("gameId") gameID: Int,
+        @Query("gameId") gameId: Int,
     ): Single<BoardGame>
 
     @FormUrlEncoded

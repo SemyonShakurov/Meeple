@@ -1,4 +1,4 @@
-package com.mscorp.meeple.api
+package com.mscorp.meeple.features.core_feature.api
 
 import com.mscorp.meeple.model.User
 import dagger.Module
@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.http.*
 import javax.inject.Singleton
 
-interface UserApi {
+internal interface UserApi {
 
     @GET("user/getAll")
     fun getAllUsers(): Single<List<User>>

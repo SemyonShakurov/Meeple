@@ -1,6 +1,6 @@
 package com.mscorp.meeple.model
 
-sealed class Request<out T> {
+internal sealed class Request<out T> {
 
     data class Success<out T>(val value: T) : Request<T>()
 

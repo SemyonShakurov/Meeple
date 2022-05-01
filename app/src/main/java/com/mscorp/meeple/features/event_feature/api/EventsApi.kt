@@ -1,4 +1,4 @@
-package com.mscorp.meeple.api
+package com.mscorp.meeple.features.event_feature.api
 
 import com.mscorp.meeple.model.Event
 import dagger.Module
