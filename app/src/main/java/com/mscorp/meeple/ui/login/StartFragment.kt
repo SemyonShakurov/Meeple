@@ -16,7 +16,7 @@ import com.mscorp.meeple.model.*
 import com.mscorp.meeple.ui.main.MenuActivity
 import com.mscorp.meeple.ui.viewmodel.LoginViewModel
 
-class StartFragment : Fragment() {
+internal class StartFragment : Fragment() {
     private var user: User? = null
     private var userFriends: UserFriends? = null
     private lateinit var binding: FragmentStartBinding

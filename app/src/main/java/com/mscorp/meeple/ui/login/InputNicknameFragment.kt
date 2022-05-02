@@ -15,7 +15,7 @@ import com.mscorp.meeple.R
 import com.mscorp.meeple.model.Request
 import com.mscorp.meeple.ui.viewmodel.RegistrationViewModel
 
-class InputNicknameFragment : Fragment() {
+internal class InputNicknameFragment : Fragment() {
 
     private lateinit var registrationViewModel: RegistrationViewModel
 

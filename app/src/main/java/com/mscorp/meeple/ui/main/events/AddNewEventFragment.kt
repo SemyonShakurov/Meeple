@@ -16,7 +16,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -33,7 +32,6 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.mscorp.meeple.R
 import com.mscorp.meeple.databinding.FragmentAddEventBinding
-import com.mscorp.meeple.model.BoardGame
 import com.mscorp.meeple.model.Request
 import com.mscorp.meeple.ui.viewmodel.EventsViewModel
 import com.mscorp.meeple.ui.viewmodel.UserViewModel

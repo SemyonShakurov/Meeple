@@ -14,7 +14,7 @@ import com.mscorp.meeple.R
 import com.mscorp.meeple.model.Request
 import com.mscorp.meeple.ui.viewmodel.RegistrationViewModel
 
-class ResetPasswordFragment : Fragment() {
+internal class ResetPasswordFragment : Fragment() {
 
     private lateinit var registrationViewModel: RegistrationViewModel
 

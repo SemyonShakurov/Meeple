@@ -8,8 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.compose.ui.graphics.Color
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
@@ -20,8 +18,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mscorp.meeple.R
 import com.mscorp.meeple.databinding.FragmentEventBinding
-import com.mscorp.meeple.databinding.FragmentEventsBinding
-import com.mscorp.meeple.databinding.FragmentProfileBinding
 import com.mscorp.meeple.model.Event
 import com.mscorp.meeple.model.Request
 import com.mscorp.meeple.ui.viewmodel.UserViewModel
