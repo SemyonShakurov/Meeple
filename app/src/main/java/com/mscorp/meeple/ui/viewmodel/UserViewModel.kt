@@ -4,11 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mscorp.meeple.model.*
-import com.mscorp.meeple.repository.ProfileRepository
 import kotlinx.coroutines.launch
 import java.io.File
 
-class UserViewModel : ViewModel() {
+internal class UserViewModel : ViewModel() {
     lateinit var user: User
     lateinit var userFriends: UserFriends
     lateinit var games: List<BoardGame>
@@ -111,6 +110,4 @@ class UserViewModel : ViewModel() {
             }
         }
     }
-
-
 }

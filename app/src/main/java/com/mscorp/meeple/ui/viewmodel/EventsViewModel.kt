@@ -5,10 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mscorp.meeple.model.Event
 import com.mscorp.meeple.model.Request
-import com.mscorp.meeple.repository.EventsRepository
+import com.mscorp.meeple.features.event_feature.EventsRepository
 import kotlinx.coroutines.launch
 
-class EventsViewModel :  ViewModel() {
+internal class EventsViewModel :  ViewModel() {
 
     private val eventsRepository = EventsRepository()
     private var events: MutableList<Event> = mutableListOf()

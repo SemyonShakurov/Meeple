@@ -5,13 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mscorp.meeple.model.Request
 import com.mscorp.meeple.model.User
-import com.mscorp.meeple.repository.AuthRepository
+import com.mscorp.meeple.features.core_feature.AuthorizationRepository
 import kotlinx.coroutines.launch
 
-class RegistrationViewModel : ViewModel() {
+internal class RegistrationViewModel : ViewModel() {
 
     val loginResponse: MutableLiveData<Request<User>> = MutableLiveData()
-    private val regRepository = AuthRepository()
+    private val regRepository = AuthorizationRepository()
 
     fun register(
         name: String,

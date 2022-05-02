@@ -13,7 +13,7 @@ import com.mscorp.meeple.model.Request
 import com.mscorp.meeple.databinding.FragmentRegistrationBinding
 import com.mscorp.meeple.ui.viewmodel.RegistrationViewModel
 
-class RegistrationFragment : Fragment() {
+internal class RegistrationFragment : Fragment() {
 
     private lateinit var binding: FragmentRegistrationBinding
     private val viewModel = RegistrationViewModel()

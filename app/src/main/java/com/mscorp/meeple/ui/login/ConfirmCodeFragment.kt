@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
-import com.airbnb.lottie.LottieAnimationView
 import com.mscorp.meeple.R
 import com.mscorp.meeple.model.*
 import com.mscorp.meeple.ui.main.MenuActivity
@@ -19,7 +18,7 @@ import com.mscorp.meeple.ui.viewmodel.LoginViewModel
 import com.mscorp.meeple.ui.viewmodel.RegistrationViewModel
 import java.lang.NumberFormatException
 
-class ConfirmCodeFragment : Fragment() {
+internal class ConfirmCodeFragment : Fragment() {
 
     private var user: User? = null
     private var userFriends: UserFriends? = null
