@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mscorp.meeple.R
 import com.mscorp.meeple.model.BoardGame
 import com.mscorp.meeple.model.TypeOfGameList
-import com.mscorp.meeple.ui.viewmodel.UserViewModel
+import com.mscorp.meeple.features.core_feature.view_models.UserViewModel
 
-class SmallGamesAdapter(
+internal class SmallGamesAdapter(
     private var dataSet: List<BoardGame>,
     private val type: TypeOfGameList,
     private val navController: NavController,

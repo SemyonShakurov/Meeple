@@ -2,11 +2,11 @@ package com.mscorp.meeple.model
 
 import java.io.Serializable
 
-data class BoardGames(
+internal data class BoardGames(
     val games: List<BoardGame>
 ) : Serializable
 
-data class BoardGame(
+internal data class BoardGame(
     val id: Int,
     val name: String,
     val type: String,

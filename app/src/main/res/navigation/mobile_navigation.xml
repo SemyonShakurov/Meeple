@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_map"
-        android:name="com.mscorp.meeple.ui.main.MapFragment"
+        android:name="com.mscorp.meeple.features.core_feature.MapFragment"
         tools:layout="@layout/fragment_map">
         <action
             android:id="@+id/action_navigation_map_to_eventFragment"
@@ -16,185 +16,115 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.mscorp.meeple.ui.main.ProfileFragment"
+        android:name="com.mscorp.meeple.features.core_feature.ProfileFragment"
         tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_navigation_profile_to_navigation_events"
-            app:destination="@id/navigation_events"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"/>
+            app:destination="@id/navigation_events" />
         <action
             android:id="@+id/action_navigation_profile_to_myGamesFragment"
-            app:destination="@id/myGamesFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"/>
+            app:destination="@id/myGamesFragment" />
         <action
             android:id="@+id/action_navigation_profile_to_myFriendsFragment"
-            app:destination="@id/myFriendsFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"/>
+            app:destination="@id/myFriendsFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_events"
-        android:name="com.mscorp.meeple.ui.main.EventsFragment"
+        android:name="com.mscorp.meeple.features.event_feature.EventsFragment"
         tools:layout="@layout/fragment_events">
         <action
             android:id="@+id/action_navigation_profile_to_navigation_map"
-            app:destination="@id/navigation_map"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"/>
+            app:destination="@id/navigation_map" />
         <action
             android:id="@+id/action_navigation_events_to_addNewEventFragment"
-            app:destination="@id/add_new_event_fragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"/>
+            app:destination="@id/add_new_event_fragment" />
         <action
             android:id="@+id/action_navigation_events_to_eventFragment"
-            app:destination="@id/eventFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"/>
+            app:destination="@id/eventFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/add_new_event_fragment"
-        android:name="com.mscorp.meeple.ui.main.events.AddNewEventFragment"
+        android:name="com.mscorp.meeple.features.event_feature.AddNewEventFragment"
         tools:layout="@layout/fragment_add_event">
         <action
             android:id="@+id/action_navigation_addNewEvent_to_events"
-            app:destination="@id/navigation_events"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"/>
+            app:destination="@id/navigation_events" />
     </fragment>
 
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="com.mscorp.meeple.ui.login.RegistrationFragment"
+        android:name="com.mscorp.meeple.features.core_feature.login.RegistrationFragment"
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration">
         <action
             android:id="@+id/action_registrationFragment_to_startFragment"
-            app:destination="@id/startFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"/>
+            app:destination="@id/startFragment" />
         <action
             android:id="@+id/action_fragment_registration_to_fragment_confirm_code"
-            app:destination="@id/fragment_confirm_code"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"/>
+            app:destination="@id/fragment_confirm_code" />
     </fragment>
 
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.mscorp.meeple.ui.login.StartFragment"
+        android:name="com.mscorp.meeple.features.core_feature.login.StartFragment"
         android:label="StartFragment">
         <action
             android:id="@+id/action_startFragment_to_registrationFragment"
-            app:destination="@id/registrationFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"/>
+            app:destination="@id/registrationFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/myGamesFragment"
-        android:name="com.mscorp.meeple.ui.main.games.MyGamesFragment"
+        android:name="com.mscorp.meeple.features.games_feature.MyGamesFragment"
         android:label="fragment_my_games"
         tools:layout="@layout/fragment_my_games">
         <action
             android:id="@+id/action_myGamesFragment_to_navigation_profile"
-            app:destination="@id/navigation_profile"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"/>
+            app:destination="@id/navigation_profile" />
         <action
             android:id="@+id/action_myGamesFragment_to_addNewGameFragment"
-            app:destination="@id/addNewGameFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"/>
+            app:destination="@id/addNewGameFragment" />
         <action
             android:id="@+id/action_myGamesFragment_to_gameDetailedFragment"
-            app:destination="@id/gameDetailedFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"/>
+            app:destination="@id/gameDetailedFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNewGameFragment"
-        android:name="com.mscorp.meeple.ui.main.games.AddNewGameFragment"
+        android:name="com.mscorp.meeple.features.games_feature.AddNewGameFragment"
         android:label="fragment_add_new_game"
         tools:layout="@layout/fragment_add_new_game">
         <action
             android:id="@+id/action_addNewGameFragment_to_myGamesFragment"
-            app:destination="@id/myGamesFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"/>
+            app:destination="@id/myGamesFragment" />
         <action
             android:id="@+id/action_addNewGameFragment_to_gameDetailedFragment"
-            app:destination="@id/gameDetailedFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"/>
+            app:destination="@id/gameDetailedFragment" />
     </fragment>
     <fragment
         android:id="@+id/myFriendsFragment"
-        android:name="com.mscorp.meeple.ui.main.friends.MyFriendsFragment"
+        android:name="com.mscorp.meeple.features.friend_feature.MyFriendsFragment"
         android:label="fragment_my_friends"
         tools:layout="@layout/fragment_my_friends">
         <action
             android:id="@+id/action_myFriendsFragment_to_navigation_profile"
-            app:destination="@id/navigation_profile"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"/>
+            app:destination="@id/navigation_profile" />
         <action
             android:id="@+id/action_myFriendsFragment_to_addNewFriendsFragment"
-            app:destination="@id/addNewFriendsFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"/>
+            app:destination="@id/addNewFriendsFragment" />
         <action
             android:id="@+id/action_myFriendsFragment_to_friendDetailedFragment"
             app:destination="@id/friendDetailedFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNewFriendsFragment"
-        android:name="com.mscorp.meeple.ui.main.friends.AddNewFriendsFragment"
+        android:name="com.mscorp.meeple.features.friend_feature.AddNewFriendsFragment"
         android:label="fragment_add_new_friends"
         tools:layout="@layout/fragment_add_new_friends">
         <action
             android:id="@+id/action_addNewFriendsFragment_to_myFriendsFragment"
             app:destination="@id/myFriendsFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"
             />
         <action
             android:id="@+id/action_addNewFriendsFragment_to_friendDetailedFragment"
@@ -202,74 +132,50 @@
     </fragment>
     <fragment
         android:id="@+id/friendDetailedFragment"
-        android:name="com.mscorp.meeple.ui.main.friends.FriendDetailedFragment"
+        android:name="com.mscorp.meeple.features.friend_feature.FriendDetailedFragment"
         android:label="FriendDetailedFragment" >
         <argument
             android:name="user"
             app:argType="com.mscorp.meeple.model.User" />
         <action
             android:id="@+id/action_friendDetailedFragment_to_myFriendsFragment"
-            app:destination="@id/myFriendsFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"/>
+            app:destination="@id/myFriendsFragment" />
         <action
             android:id="@+id/action_friendDetailedFragment_to_addNewFriendsFragment"
-            app:destination="@id/addNewFriendsFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"/>
+            app:destination="@id/addNewFriendsFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/fragment_confirm_code"
-        android:name="com.mscorp.meeple.ui.login.ConfirmCodeFragment"
+        android:name="com.mscorp.meeple.features.core_feature.login.ConfirmCodeFragment"
         tools:layout="@layout/fragment_confirm_code">
         <action
             android:id="@+id/action_fragment_confirm_code_to_fragment_registration"
-            app:destination="@id/registrationFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit" />
+            app:destination="@id/registrationFragment" />
     </fragment>
     <fragment
         android:id="@+id/gameDetailedFragment"
-        android:name="com.mscorp.meeple.ui.main.games.GameDetailedFragment"
+        android:name="com.mscorp.meeple.features.games_feature.GameDetailedFragment"
         android:label="fragment_game_detailed"
         tools:layout="@layout/fragment_game_detailed" >
         <action
             android:id="@+id/action_gameDetailedFragment_to_myGamesFragment"
-            app:destination="@id/myGamesFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"/>
+            app:destination="@id/myGamesFragment" />
         <action
             android:id="@+id/action_gameDetailedFragment_to_addNewGameFragment"
-            app:destination="@id/addNewGameFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"/>
+            app:destination="@id/addNewGameFragment" />
         <argument
             android:name="game"
             app:argType="com.mscorp.meeple.model.BoardGame" />
     </fragment>
     <fragment
         android:id="@+id/eventFragment"
-        android:name="com.mscorp.meeple.ui.main.events.EventFragment"
+        android:name="com.mscorp.meeple.features.event_feature.EventFragment"
         android:label="fragment_event"
         tools:layout="@layout/fragment_event" >
         <action
             android:id="@+id/action_eventFragment_to_navigation_events"
-            app:destination="@id/navigation_events"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"/>
+            app:destination="@id/navigation_events" />
         <argument
             android:name="event"
             app:argType="com.mscorp.meeple.model.Event" />

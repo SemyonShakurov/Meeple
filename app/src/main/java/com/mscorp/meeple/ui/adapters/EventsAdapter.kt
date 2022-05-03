@@ -9,16 +9,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mscorp.meeple.R
 import com.mscorp.meeple.model.Event
-import java.text.SimpleDateFormat
-import java.util.*
 
-class EventsAdapter(
+internal class EventsAdapter(
     context: Context,
     private val navController: NavController
 ) : ListAdapter<Event, EventsAdapter.EventsViewHolder>(EventsCallback()) {

@@ -2,7 +2,7 @@ package com.mscorp.meeple.model
 
 import java.io.Serializable
 
-data class User (
+internal data class User (
     val id: Int,
     val email: String,
     val nickname: String,

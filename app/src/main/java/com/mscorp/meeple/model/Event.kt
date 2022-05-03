@@ -2,7 +2,7 @@ package com.mscorp.meeple.model
 
 import java.io.Serializable
 
-data class Event(
+internal data class Event(
     val id: Int,
     val title: String,
     val count: String,
