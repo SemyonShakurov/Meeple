@@ -1,4 +1,4 @@
-package com.mscorp.meeple.ui.login
+package com.mscorp.meeple.features.core_feature.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,16 +7,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import com.mscorp.meeple.R
+import com.mscorp.meeple.core.MeepleFragment
+import com.mscorp.meeple.features.core_feature.view_models.RegistrationViewModel
 import com.mscorp.meeple.model.Request
-import com.mscorp.meeple.ui.viewmodel.RegistrationViewModel
 
-internal class ResetPasswordFragment : Fragment() {
-
-    private lateinit var registrationViewModel: RegistrationViewModel
+internal class ResetPasswordFragment : MeepleFragment<RegistrationViewModel>() {
 
     companion object {
         const val ID_KEY = "Id"
@@ -28,11 +24,6 @@ internal class ResetPasswordFragment : Fragment() {
             fragment.arguments = bundle
             return fragment
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        registrationViewModel = ViewModelProvider(this).get(RegistrationViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -48,10 +39,10 @@ internal class ResetPasswordFragment : Fragment() {
             if (password != repeat)
                 Toast.makeText(context, "Пароли не совпадают", Toast.LENGTH_SHORT).show()
             else
-                registrationViewModel.resetPassword(arguments?.getInt(ID_KEY)!!, password)
+                viewModel.resetPassword(arguments?.getInt(ID_KEY)!!, password)
         }
 
-        registrationViewModel.loginResponse.observe(viewLifecycleOwner) {
+        viewModel.loginResponse.observe(viewLifecycleOwner) {
             when (it) {
                 is Request.Failure -> {
                     Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()

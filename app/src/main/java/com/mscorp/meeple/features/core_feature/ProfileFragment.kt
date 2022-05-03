@@ -1,4 +1,4 @@
-package com.mscorp.meeple.ui.main
+package com.mscorp.meeple.features.core_feature
 
 import android.app.Activity
 import android.content.ContentResolver
@@ -10,24 +10,28 @@ import android.provider.OpenableColumns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mscorp.meeple.R
+import com.mscorp.meeple.core.MeepleFragment
 import com.mscorp.meeple.databinding.FragmentProfileBinding
-import com.mscorp.meeple.model.*
+import com.mscorp.meeple.features.core_feature.login.LoginActivity
+import com.mscorp.meeple.features.core_feature.view_models.UserViewModel
+import com.mscorp.meeple.model.BoardGames
+import com.mscorp.meeple.model.TypeOfGameList
+import com.mscorp.meeple.model.User
+import com.mscorp.meeple.model.UserFriends
 import com.mscorp.meeple.ui.adapters.SmallFiendsAdapter
 import com.mscorp.meeple.ui.adapters.SmallGamesAdapter
-import com.mscorp.meeple.ui.login.LoginActivity
-import com.mscorp.meeple.ui.viewmodel.UserViewModel
 import com.squareup.picasso.Picasso
-import java.io.*
-class ProfileFragment : Fragment() {
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+
+internal class ProfileFragment : MeepleFragment<UserViewModel>() {
 
     private lateinit var binding: FragmentProfileBinding
-    private val viewModel: UserViewModel by navGraphViewModels(R.id.mobile_navigation)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,10 +76,11 @@ class ProfileFragment : Fragment() {
         }
 
         binding.imageViewSignOut.setOnClickListener {
-            val preferences =
-                SecurePreferences(context, "my-preferences", "SometopSecretKey1235", true)
-            preferences.removeValue("userId")
-            preferences.removeValue("pass")
+            // TODO!!!!!
+//            val preferences =
+//                SecurePreferences(context, "my-preferences", "SometopSecretKey1235", true)
+//            preferences.removeValue("userId")
+//            preferences.removeValue("pass")
             val intent = Intent(context, LoginActivity::class.java)
             startActivity(intent)
         }
@@ -151,9 +156,7 @@ class ProfileFragment : Fragment() {
         val outputStream = FileOutputStream(file)
         inputStream.copyTo(outputStream)
 
-        val body = UploadRequestBody(file, "image")
-
-        viewModel.uploadAvatar(file, body)
+        viewModel.uploadAvatar(file)
     }
 
     private fun getFileName(contentResolver: ContentResolver, uri: Uri): String {
@@ -161,7 +164,8 @@ class ProfileFragment : Fragment() {
         val cursor = contentResolver.query(uri, null, null, null, null)
         cursor?.use {
             it.moveToFirst()
-            name = cursor.getString(it.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+            val column = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+            name = cursor.getString(column)
         }
         return name
     }

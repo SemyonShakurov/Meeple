@@ -1,4 +1,4 @@
-package com.mscorp.meeple.ui.login
+package com.mscorp.meeple.features.core_feature.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,21 +8,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.mscorp.meeple.R
+import com.mscorp.meeple.core.MeepleFragment
+import com.mscorp.meeple.features.core_feature.view_models.RegistrationViewModel
 import com.mscorp.meeple.model.Request
-import com.mscorp.meeple.ui.viewmodel.RegistrationViewModel
 
-internal class InputNicknameFragment : Fragment() {
-
-    private lateinit var registrationViewModel: RegistrationViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        registrationViewModel = ViewModelProvider(this).get(RegistrationViewModel::class.java)
-    }
+internal class InputNicknameFragment : MeepleFragment<RegistrationViewModel>() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,10 +29,10 @@ internal class InputNicknameFragment : Fragment() {
 
         view.findViewById<Button>(R.id.buttonContinue).setOnClickListener {
             val nickname = view.findViewById<EditText>(R.id.editTextNickname).text.toString()
-            registrationViewModel.sendCode("@$nickname")
+            viewModel.sendCode("@$nickname")
         }
 
-        registrationViewModel.loginResponse.observe(viewLifecycleOwner) {
+        viewModel.loginResponse.observe(viewLifecycleOwner) {
             when (it) {
                 is Request.Failure -> {
                     Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()

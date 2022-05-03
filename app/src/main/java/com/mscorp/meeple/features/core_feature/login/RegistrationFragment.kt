@@ -1,7 +1,6 @@
-package com.mscorp.meeple.ui.login
+package com.mscorp.meeple.features.core_feature.login
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,18 +8,19 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.observe
 import com.mscorp.meeple.R
-import com.mscorp.meeple.model.Request
+import com.mscorp.meeple.core.MeepleFragment
 import com.mscorp.meeple.databinding.FragmentRegistrationBinding
-import com.mscorp.meeple.ui.viewmodel.RegistrationViewModel
+import com.mscorp.meeple.features.core_feature.view_models.RegistrationViewModel
+import com.mscorp.meeple.model.Request
 
-internal class RegistrationFragment : Fragment() {
+internal class RegistrationFragment : MeepleFragment<RegistrationViewModel>() {
 
     private lateinit var binding: FragmentRegistrationBinding
-    private val viewModel = RegistrationViewModel()
 
-    internal fun EditText.isEmailValid(): Boolean {
+    private fun EditText.isEmailValid(): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(this.text.toString()).matches()
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

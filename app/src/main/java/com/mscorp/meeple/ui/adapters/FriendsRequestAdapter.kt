@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.makeramen.roundedimageview.RoundedImageView
 import com.mscorp.meeple.R
 import com.mscorp.meeple.model.User
-import com.mscorp.meeple.ui.viewmodel.UserViewModel
+import com.mscorp.meeple.features.core_feature.view_models.UserViewModel
 import com.squareup.picasso.Picasso
 
-class FriendsRequestAdapter(
+internal class FriendsRequestAdapter(
     private var dataSet: List<User>,
     private val viewModel: UserViewModel
 ) : RecyclerView.Adapter<FriendsRequestAdapter.ViewHolder>() {

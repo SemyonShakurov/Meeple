@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mscorp.meeple.R
 import com.mscorp.meeple.model.Event
 
-class EventsAdapter(
+internal class EventsAdapter(
     context: Context,
     private val navController: NavController
 ) : ListAdapter<Event, EventsAdapter.EventsViewHolder>(EventsCallback()) {

@@ -93,14 +93,11 @@ dependencies {
     implementation "io.reactivex.rxjava3:rxandroid:$rx_java_android"
     implementation "com.github.akarnokd:rxjava3-retrofit-adapter:$rx_java_retrofit"
 
-    def elmslie = "1.4.0"
-    implementation "com.github.vivid-money.elmslie:elmslie-core:$elmslie"
-    implementation "com.github.vivid-money.elmslie:elmslie-android:$elmslie"
-
     def dagger = "2.41"
     implementation "com.google.dagger:dagger:$dagger"
     kapt "com.google.dagger:dagger-compiler:$dagger"
 
+    implementation "com.google.dagger:dagger-android-support:$dagger"
     implementation "com.google.dagger:dagger-android:$dagger"
     kapt "com.google.dagger:dagger-android-processor:$dagger"
 

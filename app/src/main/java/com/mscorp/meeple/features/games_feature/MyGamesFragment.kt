@@ -1,4 +1,4 @@
-package com.mscorp.meeple.ui.main.games
+package com.mscorp.meeple.features.games_feature
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -16,9 +16,9 @@ import com.mscorp.meeple.ui.adapters.SmallGamesAdapter
 import com.mscorp.meeple.databinding.FragmentMyGamesBinding
 import com.mscorp.meeple.model.Request
 import com.mscorp.meeple.model.TypeOfGameList
-import com.mscorp.meeple.ui.viewmodel.UserViewModel
+import com.mscorp.meeple.features.core_feature.view_models.UserViewModel
 
-class MyGamesFragment : Fragment() {
+internal class MyGamesFragment : Fragment() {
 
     private lateinit var binding: FragmentMyGamesBinding
     private val viewModel: UserViewModel by navGraphViewModels(R.id.mobile_navigation)

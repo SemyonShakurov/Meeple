@@ -1,4 +1,4 @@
-package com.mscorp.meeple.ui.main.games
+package com.mscorp.meeple.features.games_feature
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,24 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mscorp.meeple.R
-import com.mscorp.meeple.ui.adapters.SmallGamesAdapter
+import com.mscorp.meeple.core.MeepleFragment
 import com.mscorp.meeple.databinding.FragmentAddNewGameBinding
+import com.mscorp.meeple.features.core_feature.view_models.UserViewModel
 import com.mscorp.meeple.model.Request
 import com.mscorp.meeple.model.TypeOfGameList
-import com.mscorp.meeple.ui.viewmodel.UserViewModel
+import com.mscorp.meeple.ui.adapters.SmallGamesAdapter
 import java.util.*
 
-class AddNewGameFragment : Fragment() {
+internal class AddNewGameFragment : MeepleFragment<UserViewModel>() {
 
     private lateinit var binding: FragmentAddNewGameBinding
-    private val viewModel: UserViewModel by navGraphViewModels(R.id.mobile_navigation)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

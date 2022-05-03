@@ -1,8 +1,7 @@
-package com.mscorp.meeple.ui.main.events
+package com.mscorp.meeple.features.event_feature
 
 import android.os.Bundle
 import android.text.format.DateFormat
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,23 +9,21 @@ import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mscorp.meeple.R
+import com.mscorp.meeple.core.MeepleFragment
 import com.mscorp.meeple.databinding.FragmentEventBinding
+import com.mscorp.meeple.features.core_feature.view_models.UserViewModel
 import com.mscorp.meeple.model.Event
 import com.mscorp.meeple.model.Request
-import com.mscorp.meeple.ui.viewmodel.UserViewModel
-import java.lang.StringBuilder
 
-class EventFragment : Fragment(), OnMapReadyCallback {
+internal class EventFragment : MeepleFragment<UserViewModel>(), OnMapReadyCallback {
 
     private lateinit var binding: FragmentEventBinding
-    private val userViewModel: UserViewModel by navGraphViewModels(R.id.mobile_navigation)
     private lateinit var event: Event
     private lateinit var mMapView: MapView
 
@@ -42,10 +39,10 @@ class EventFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (event.members.map { it.id }.contains(userViewModel.user.id)) {
+        if (event.members.map { it.id }.contains(viewModel.user.id)) {
             binding.buttonBackFromEvent.text = "Отказаться"
             binding.buttonBackFromEvent.setOnClickListener {
-                userViewModel.unsubscribeEvent(event.id, userViewModel.user.id)
+                viewModel.unsubscribeEvent(event.id, viewModel.user.id)
                 binding.imageViewBack2.setOnClickListener {
                     findNavController().navigate(R.id.action_eventFragment_to_navigation_events)
                 }
@@ -53,7 +50,7 @@ class EventFragment : Fragment(), OnMapReadyCallback {
         } else {
             binding.buttonBackFromEvent.text = "Учавствовать"
             binding.buttonBackFromEvent.setOnClickListener {
-                userViewModel.subscribeEvent(event.id, userViewModel.user.id)
+                viewModel.subscribeEvent(event.id, viewModel.user.id)
             }
             binding.imageViewBack2.setOnClickListener {
                 findNavController().navigate(R.id.action_eventFragment_to_navigation_map)
@@ -72,7 +69,7 @@ class EventFragment : Fragment(), OnMapReadyCallback {
                 AppCompatResources.getColorStateList(requireContext(), R.color.black)
         }
         val builder = StringBuilder()
-        for (i in userViewModel.games.filter { event.games.contains(it.id) }) {
+        for (i in viewModel.games.filter { event.games.contains(it.id) }) {
             if (builder.isNotEmpty())
                 builder.append(", ")
             builder.append(i.name)
@@ -97,8 +94,8 @@ class EventFragment : Fragment(), OnMapReadyCallback {
         setupObservers()
     }
 
-    fun setupObservers() {
-        userViewModel.subscribeEventResponse.observe(viewLifecycleOwner) {
+    private fun setupObservers() {
+        viewModel.subscribeEventResponse.observe(viewLifecycleOwner) {
             when (it) {
                 is Request.Success -> {
                     MaterialAlertDialogBuilder(requireContext())
@@ -106,16 +103,17 @@ class EventFragment : Fragment(), OnMapReadyCallback {
                         .setPositiveButton("OK") { _, _ ->
                             findNavController().navigate(R.id.action_eventFragment_to_navigation_events)
                         }.show()
-                    userViewModel.subscribeEventResponse.value = null
+                    viewModel.subscribeEventResponse.value = null
                 }
                 is Request.Failure -> {
                     Toast.makeText(requireContext(), "Запись не удалась", Toast.LENGTH_SHORT).show()
-                    userViewModel.subscribeEventResponse.value = null
+                    viewModel.subscribeEventResponse.value = null
                 }
+                else -> Unit
             }
         }
 
-        userViewModel.unsubscribeEventResponse.observe(viewLifecycleOwner) {
+        viewModel.unsubscribeEventResponse.observe(viewLifecycleOwner) {
             when (it) {
                 is Request.Success -> {
                     MaterialAlertDialogBuilder(requireContext())
@@ -123,10 +121,10 @@ class EventFragment : Fragment(), OnMapReadyCallback {
                         .setPositiveButton("OK") { _, _ ->
                             findNavController().navigate(R.id.action_eventFragment_to_navigation_events)
                         }.show()
-                    userViewModel.unsubscribeEventResponse.value = null
+                    viewModel.unsubscribeEventResponse.value = null
                 }
                 is Request.Failure -> {
-                    userViewModel.unsubscribeEventResponse.value = null
+                    viewModel.unsubscribeEventResponse.value = null
                     Toast.makeText(requireContext(), "Отмена не удалась", Toast.LENGTH_SHORT).show()
                 }
             }
