@@ -19,8 +19,7 @@ class SmallGamesAdapter(
     private val type: TypeOfGameList,
     private val navController: NavController,
     private val viewModel: UserViewModel
-) :
-    RecyclerView.Adapter<SmallGamesAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<SmallGamesAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textViewName: TextView = view.findViewById(R.id.textViewSmallGame)

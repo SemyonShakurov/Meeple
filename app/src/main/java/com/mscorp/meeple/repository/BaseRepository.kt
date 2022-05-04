@@ -7,7 +7,7 @@ import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import retrofit2.HttpException
 
-abstract class BaseRepository() {
+abstract class BaseRepository {
 
     val api = ApiService.getApi()
 
