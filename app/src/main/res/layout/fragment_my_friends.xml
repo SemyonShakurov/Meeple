@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/main_background"
-    tools:context=".ui.main.friends.MyFriendsFragment">
+    tools:context=".features.friend_feature.MyFriendsFragment">
 
     <TextView
         android:id="@+id/textViewMyFriendsHeader"

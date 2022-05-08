@@ -10,7 +10,7 @@ import com.mscorp.meeple.R
 import com.mscorp.meeple.model.User
 import com.squareup.picasso.Picasso
 
-class SmallFiendsAdapter(private val dataSet: List<User>)
+internal class SmallFiendsAdapter(private val dataSet: List<User>)
     : RecyclerView.Adapter<SmallFiendsAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

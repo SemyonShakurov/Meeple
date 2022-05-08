@@ -10,12 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.makeramen.roundedimageview.RoundedImageView
 import com.mscorp.meeple.R
 import com.mscorp.meeple.model.User
-import com.mscorp.meeple.ui.main.friends.MyFriendsFragment
-import com.mscorp.meeple.ui.viewmodel.LoginViewModel
-import com.mscorp.meeple.ui.viewmodel.UserViewModel
+import com.mscorp.meeple.features.friend_feature.MyFriendsFragment
+import com.mscorp.meeple.features.core_feature.view_models.LoginViewModel
+import com.mscorp.meeple.features.core_feature.view_models.UserViewModel
 import com.squareup.picasso.Picasso
 
-class FriendsAdapter(
+internal class FriendsAdapter(
     var dataSet: MutableList<User>,
     private val addFriend: Boolean,
     private val viewModel: UserViewModel,
