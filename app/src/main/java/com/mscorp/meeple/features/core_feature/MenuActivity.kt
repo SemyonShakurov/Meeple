@@ -1,17 +1,17 @@
-package com.mscorp.meeple.ui.main
+package com.mscorp.meeple.features.core_feature
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavArgument
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mscorp.meeple.R
+import com.mscorp.meeple.core.MeepleActivity
 import com.mscorp.meeple.model.BoardGames
 import com.mscorp.meeple.model.User
 import com.mscorp.meeple.model.UserFriends
 
-class MenuActivity : AppCompatActivity() {
+internal class MenuActivity : MeepleActivity() {
 
     var user: User? = null
     private var userFriends: UserFriends? = null

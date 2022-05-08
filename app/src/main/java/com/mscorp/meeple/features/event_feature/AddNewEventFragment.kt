@@ -1,4 +1,4 @@
-package com.mscorp.meeple.ui.main.events
+package com.mscorp.meeple.features.event_feature
 
 import android.app.ActionBar
 import android.app.Dialog
@@ -13,11 +13,9 @@ import android.widget.ImageView
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -31,23 +29,22 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.mscorp.meeple.R
+import com.mscorp.meeple.core.MeepleFragment
 import com.mscorp.meeple.databinding.FragmentAddEventBinding
+import com.mscorp.meeple.features.core_feature.view_models.UserViewModel
 import com.mscorp.meeple.model.Request
-import com.mscorp.meeple.ui.viewmodel.EventsViewModel
-import com.mscorp.meeple.ui.viewmodel.UserViewModel
 import java.util.*
 
-class AddNewEventFragment : Fragment() {
+internal class AddNewEventFragment : MeepleFragment<UserViewModel>() {
 
-    lateinit var eventsViewModel: EventsViewModel
-    private val userViewModel: UserViewModel by navGraphViewModels(R.id.mobile_navigation)
+    private lateinit var eventsViewModel: EventsViewModel
     private lateinit var binding: FragmentAddEventBinding
     private var date: Long = 0L
-    private lateinit var lastCodrs: Marker
+    private lateinit var lastCoodrs: Marker
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        eventsViewModel = ViewModelProvider(this).get(EventsViewModel::class.java)
+        eventsViewModel = ViewModelProvider(this)[EventsViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -112,7 +109,7 @@ class AddNewEventFragment : Fragment() {
                         if (builder.isEmpty()) "Не выбраны" else builder.toString()
                 }
                 .setMultiChoiceItems(
-                    userViewModel.userFriends.friends.map { it.nickname }.toTypedArray(),
+                    viewModel.userFriends.friends.map { it.nickname }.toTypedArray(),
                     null,
                     null
                 )
@@ -139,7 +136,7 @@ class AddNewEventFragment : Fragment() {
                         if (builder.isEmpty()) "Не выбраны" else builder.toString()
                 }
                 .setMultiChoiceItems(
-                    userViewModel.games.filter { userViewModel.user.games!!.contains(it.id) }
+                    viewModel.games.filter { viewModel.user.games!!.contains(it.id) }
                         .map { it.name }.toTypedArray(),
                     null,
                     null
@@ -201,9 +198,9 @@ class AddNewEventFragment : Fragment() {
                 googleMap = it
                 it.uiSettings.isZoomControlsEnabled = true
                 it.setOnMapClickListener {
-                    if (::lastCodrs.isInitialized)
-                        lastCodrs.remove()
-                    lastCodrs = googleMap.addMarker(
+                    if (::lastCoodrs.isInitialized)
+                        lastCoodrs.remove()
+                    lastCoodrs = googleMap.addMarker(
                         MarkerOptions()
                             .position(it)
                             .title("Место выбрано!")
@@ -220,7 +217,7 @@ class AddNewEventFragment : Fragment() {
 
             val butAccept = dialog.findViewById<Button>(R.id.buttonBackFromMap)
             butAccept?.setOnClickListener {
-                if (this::lastCodrs.isInitialized) {
+                if (this::lastCoodrs.isInitialized) {
                     binding.textViewSelectedPlace.text = "Место выбрано"
                     dialog.hide()
                 }
@@ -230,15 +227,15 @@ class AddNewEventFragment : Fragment() {
         }
 
         binding.button.setOnClickListener {
-            val list = userViewModel.userFriends.friends.filter {
+            val list = viewModel.userFriends.friends.filter {
                 binding.textViewSelectedFriends.text.split(", ").contains(it.nickname)
             }.map { it.id }.toMutableList()
-            list.add(userViewModel.user.id)
+            list.add(viewModel.user.id)
             try {
                 eventsViewModel.addEvent(
                     binding.editTextTitle.text.trim().toString(),
                     binding.editTextCountOfPlayers.text.trim().toString(),
-                    userViewModel.games.filter {
+                    viewModel.games.filter {
                         binding.textViewSelectedGames.text.toString().split(", ").contains(it.name)
                     }.map { it.id },
                     when (binding.textViewLevelOfPlayers.text) {
@@ -250,9 +247,9 @@ class AddNewEventFragment : Fragment() {
                     binding.editTextTitle2.text.toString(),
                     date,
                     list,
-                    lastCodrs.position.latitude,
-                    lastCodrs.position.longitude,
-                    userViewModel.user.id
+                    lastCoodrs.position.latitude,
+                    lastCoodrs.position.longitude,
+                    viewModel.user.id
                 )
             } catch (ex: Exception) {
                 Toast.makeText(

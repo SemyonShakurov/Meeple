@@ -1,31 +1,28 @@
-package com.mscorp.meeple.ui.main.friends
+package com.mscorp.meeple.features.friend_feature
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mscorp.meeple.R
+import com.mscorp.meeple.core.MeepleFragment
 import com.mscorp.meeple.databinding.FragmentFriendDetailedBinding
+import com.mscorp.meeple.features.core_feature.view_models.UserViewModel
 import com.mscorp.meeple.model.TypeOfGameList
 import com.mscorp.meeple.model.User
 import com.mscorp.meeple.model.UserFriends
 import com.mscorp.meeple.ui.adapters.SmallFiendsAdapter
 import com.mscorp.meeple.ui.adapters.SmallGamesAdapter
-import com.mscorp.meeple.ui.viewmodel.UserViewModel
 import com.squareup.picasso.Picasso
 
 
-class FriendDetailedFragment : Fragment() {
+internal class FriendDetailedFragment : MeepleFragment<UserViewModel>() {
 
     private lateinit var binding: FragmentFriendDetailedBinding
     private lateinit var user: User
     private lateinit var friends: UserFriends
-    private val viewModel: UserViewModel by navGraphViewModels(R.id.mobile_navigation)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

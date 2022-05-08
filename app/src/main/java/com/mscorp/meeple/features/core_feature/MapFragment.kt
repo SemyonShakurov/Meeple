@@ -1,12 +1,10 @@
-package com.mscorp.meeple.ui.main
+package com.mscorp.meeple.features.core_feature
 
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.*
@@ -14,12 +12,12 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.mscorp.meeple.R
-import com.mscorp.meeple.ui.viewmodel.EventsViewModel
+import com.mscorp.meeple.core.MeepleFragment
+import com.mscorp.meeple.features.event_feature.EventsViewModel
 
 
-class MapFragment : Fragment(), OnMapReadyCallback {
+internal class MapFragment : MeepleFragment<EventsViewModel>(), OnMapReadyCallback {
 
-    lateinit var eventsViewModel: EventsViewModel
     lateinit var mMapView: MapView
     lateinit var googleMap: GoogleMap
 
@@ -32,14 +30,13 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        eventsViewModel = ViewModelProvider(this).get(EventsViewModel::class.java)
-        mMapView = requireActivity().findViewById<MapView>(R.id.mapViewMain)
+        mMapView = requireActivity().findViewById(R.id.mapViewMain)
         mMapView.onCreate(savedInstanceState)
         mMapView.getMapAsync(this)
 
         MapsInitializer.initialize(requireActivity())
-        eventsViewModel.loadEvents()
-        eventsViewModel.eventsLiveData.observe(viewLifecycleOwner) {
+        viewModel.loadEvents()
+        viewModel.eventsLiveData.observe(viewLifecycleOwner) {
             for (i in it) {
                 googleMap.addMarker(
                     MarkerOptions()
@@ -54,7 +51,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    override fun onMapReady(p0: GoogleMap?) {
+    override fun onMapReady(p0: GoogleMap) {
         if (p0 != null) {
             googleMap = p0
         }
@@ -66,10 +63,12 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
         googleMap.setOnInfoWindowClickListener {
             val bundle = Bundle()
-            val x = eventsViewModel.eventsLiveData.value!!.find { event -> event.lat == it.position.latitude && event.lng == it.position.longitude }
+            val x =
+                viewModel.eventsLiveData.value!!.find { event -> event.lat == it.position.latitude && event.lng == it.position.longitude }
             bundle.putSerializable(
                 "event",
-                x)
+                x
+            )
             findNavController().navigate(R.id.action_navigation_map_to_eventFragment, bundle)
         }
     }

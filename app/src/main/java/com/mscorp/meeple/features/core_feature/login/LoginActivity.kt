@@ -1,10 +1,10 @@
-package com.mscorp.meeple.ui.login
+package com.mscorp.meeple.features.core_feature.login
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.mscorp.meeple.R
+import com.mscorp.meeple.core.MeepleActivity
 
-internal class LoginActivity : AppCompatActivity() {
+internal class LoginActivity : MeepleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)

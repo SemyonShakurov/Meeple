@@ -1,4 +1,4 @@
-package com.mscorp.meeple.ui.login
+package com.mscorp.meeple.features.core_feature.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,22 +8,20 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.mscorp.meeple.R
+import com.mscorp.meeple.core.MeepleFragment
+import com.mscorp.meeple.features.core_feature.MenuActivity
+import com.mscorp.meeple.features.core_feature.view_models.LoginViewModel
+import com.mscorp.meeple.features.core_feature.view_models.RegistrationViewModel
 import com.mscorp.meeple.model.*
-import com.mscorp.meeple.ui.main.MenuActivity
-import com.mscorp.meeple.ui.viewmodel.LoginViewModel
-import com.mscorp.meeple.ui.viewmodel.RegistrationViewModel
-import java.lang.NumberFormatException
 
-internal class ConfirmCodeFragment : Fragment() {
+internal class ConfirmCodeFragment : MeepleFragment<LoginViewModel>() {
 
     private var user: User? = null
     private var userFriends: UserFriends? = null
     private lateinit var registrationViewModel: RegistrationViewModel
-    private val viewModel = LoginViewModel()
 
     companion object {
         const val EMAIL_KEY = "Email"
@@ -98,15 +96,16 @@ internal class ConfirmCodeFragment : Fragment() {
         if (!arguments?.getBoolean(BOOLEAN_KEY)!!) {
             viewModel.friendsResponse.observe(viewLifecycleOwner) {
                 if (it is Request.Success) {
-                    val preferences =
-                        SecurePreferences(
-                            context,
-                            "my-preferences",
-                            "SometopSecretKey1235",
-                            true
-                        )
-                    preferences.put("userId", user?.nickname)
-                    preferences.put("pass", arguments?.getString(PASS_KEY)!!)
+                    //TODO!!!!
+//                    val preferences =
+//                        SecurePreferences(
+//                            context,
+//                            "my-preferences",
+//                            "SometopSecretKey1235",
+//                            true
+//                        )
+//                    preferences.put("userId", user?.nickname)
+//                    preferences.put("pass", arguments?.getString(PASS_KEY)!!)
                     userFriends = it.value
                     viewModel.getAllGames()
                 } else if (it is Request.Failure) {
