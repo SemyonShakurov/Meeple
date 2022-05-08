@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.mscorp.meeple.R
 import com.mscorp.meeple.core.MeepleFragment
@@ -45,7 +44,7 @@ internal class ConfirmCodeFragment : MeepleFragment<LoginViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        registrationViewModel = ViewModelProvider(this).get(RegistrationViewModel::class.java)
+        registrationViewModel =createViewModel()
     }
 
     override fun onCreateView(
@@ -96,16 +95,6 @@ internal class ConfirmCodeFragment : MeepleFragment<LoginViewModel>() {
         if (!arguments?.getBoolean(BOOLEAN_KEY)!!) {
             viewModel.friendsResponse.observe(viewLifecycleOwner) {
                 if (it is Request.Success) {
-                    //TODO!!!!
-//                    val preferences =
-//                        SecurePreferences(
-//                            context,
-//                            "my-preferences",
-//                            "SometopSecretKey1235",
-//                            true
-//                        )
-//                    preferences.put("userId", user?.nickname)
-//                    preferences.put("pass", arguments?.getString(PASS_KEY)!!)
                     userFriends = it.value
                     viewModel.getAllGames()
                 } else if (it is Request.Failure) {

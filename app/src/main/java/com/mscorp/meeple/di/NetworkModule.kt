@@ -1,5 +1,8 @@
 package com.mscorp.meeple.di
 
+import android.content.Context
+import android.content.SharedPreferences
+import com.mscorp.meeple.core.MeepleApplication
 import com.mscorp.meeple.features.core_feature.api.AuthorizationProvideModule
 import com.mscorp.meeple.features.core_feature.api.UserProvideModule
 import com.mscorp.meeple.features.event_feature.api.EventsProvideModule
@@ -50,6 +53,12 @@ internal class NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build()
+    }
+
+    @Singleton
+    @Provides
+    fun providePrefs(app: MeepleApplication): SharedPreferences {
+        return app.getSharedPreferences("main_prefs", Context.MODE_PRIVATE)
     }
 
     companion object {

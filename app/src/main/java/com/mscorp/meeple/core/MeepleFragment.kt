@@ -2,14 +2,14 @@ package com.mscorp.meeple.core
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
-import com.mscorp.meeple.di.MeepleFactory
+import com.mscorp.meeple.di.ViewModelFactory
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 internal open class MeepleFragment<VM : MeepleViewModel> : DaggerFragment() {
 
     @Inject
-    protected lateinit var _factory: MeepleFactory<VM>
+    protected lateinit var _factory: ViewModelFactory
     private val viewModelProvider by viewModels<ViewModel>(factoryProducer = { _factory })
 
     protected val viewModel

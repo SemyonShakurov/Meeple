@@ -30,7 +30,7 @@ internal interface UserApi {
 }
 
 @Module
-abstract class UserProvideModule {
+class UserProvideModule {
 
     @Provides
     @Singleton

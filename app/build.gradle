@@ -19,8 +19,6 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            // TODO: Add proguard filters and then this will be uncommented
-            // proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     viewBinding {
@@ -80,7 +78,6 @@ dependencies {
     implementation "com.airbnb.android:lottie:4.2.2"
 
     // GMS Map
-    // TODO: integration HMS Map or replace this with MapBox
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
 
     // RxJava
@@ -94,13 +91,9 @@ dependencies {
     implementation "com.github.akarnokd:rxjava3-retrofit-adapter:$rx_java_retrofit"
 
     def dagger = "2.41"
-    implementation "com.google.dagger:dagger:$dagger"
-    kapt "com.google.dagger:dagger-compiler:$dagger"
 
     implementation "com.google.dagger:dagger-android-support:$dagger"
     implementation "com.google.dagger:dagger-android:$dagger"
     kapt "com.google.dagger:dagger-android-processor:$dagger"
-
-    def view_binding = "1.5.3"
-    implementation "com.github.kirich1409:viewbindingpropertydelegate:$view_binding"
+    kapt "com.google.dagger:dagger-compiler:$dagger"
 }

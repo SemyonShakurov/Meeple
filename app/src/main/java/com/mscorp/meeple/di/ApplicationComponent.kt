@@ -1,34 +1,35 @@
 package com.mscorp.meeple.di
 
-import android.app.Activity
-import android.app.Application
-import androidx.fragment.app.Fragment
+import com.mscorp.meeple.core.MeepleApplication
 import dagger.BindsInstance
 import dagger.Component
-import dagger.Module
+import dagger.android.AndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
+import dagger.android.support.DaggerAppCompatActivity
+import dagger.android.support.DaggerFragment
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [RootModule::class])
-interface ApplicationComponent {
+@Component(
+    modules = [NetworkModule::class,
+        ViewModelModule::class,
+        AndroidSupportInjectionModule::class,
+        ActivityModule::class]
+)
+interface ApplicationComponent : AndroidInjector<MeepleApplication> {
 
-    fun inject(application: Application)
+    override fun inject(application: MeepleApplication)
 
-    fun inject(fragment: Fragment)
+    fun inject(activity: DaggerAppCompatActivity)
 
-    fun inject(activity: Activity)
+    fun inject(fragment: DaggerFragment)
 
     @Component.Builder
     interface Builder {
 
-        fun build(): ApplicationComponent
-
         @BindsInstance
-        fun applicationBind(application: Application): Builder
-    }
-}
+        fun application(application: MeepleApplication): Builder
 
-@Module(includes = [NetworkModule::class, ViewModelModule::class])
-object RootModule {
-    // No-op
+        fun build(): ApplicationComponent
+    }
 }

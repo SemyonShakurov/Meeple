@@ -47,7 +47,7 @@ internal interface AuthorizationApi {
 }
 
 @Module
-abstract class AuthorizationProvideModule {
+class AuthorizationProvideModule {
 
     @Provides
     @Singleton

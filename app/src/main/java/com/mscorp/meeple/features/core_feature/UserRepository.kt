@@ -24,7 +24,6 @@ internal class UserRepository @Inject constructor(
         )
     }
 
-    // TODO: Remove MultipartBody from method arguments
     fun uploadAvatar(
         id: Int,
         file: MultipartBody.Part,

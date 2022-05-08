@@ -42,7 +42,7 @@ internal interface EventsApi {
 }
 
 @Module
-abstract class EventsProvideModule {
+class EventsProvideModule {
 
     @Provides
     @Singleton

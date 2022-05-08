@@ -7,7 +7,6 @@
     <string name="title_events">События</string>
     <string name="title_profile">Профиль</string>
     <string name="btn_register">Регистрация</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -27,7 +26,6 @@
     <string name="create">Создать</string>
     <string name="login">Войти</string>
     <string name="forget_password">Забыли пароль?</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="my_friends">Мои друзья</string>
     <string name="add_event">Добавить событие</string>

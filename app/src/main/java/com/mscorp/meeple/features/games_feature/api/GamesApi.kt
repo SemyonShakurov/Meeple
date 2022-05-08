@@ -58,7 +58,7 @@ internal interface GamesApi {
 }
 
 @Module
-abstract class GamesProvideModule {
+class GamesProvideModule {
 
     @Provides
     @Singleton

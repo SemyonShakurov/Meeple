@@ -27,21 +27,7 @@ internal class StartFragment : MeepleFragment<LoginViewModel>() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // TODO: !!!!!
-//        val preferences =
-//            SecurePreferences(context, "my-preferences", "SometopSecretKey1235", true)
-        binding = FragmentStartBinding.inflate(inflater, container, false)
-//
-//        val login: String? = preferences.getString("userId")
-//        return if (login == null) {
-//            binding.root
-//        } else {
-//            havAcc = true
-//            val pass = preferences.getString("pass")
-//            viewModel.login(login, pass)
-//            inflater.inflate(R.layout.fragment_loading, container, false)
-//        }
-        return binding.root
+        return FragmentStartBinding.inflate(inflater, container, false).root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -101,7 +87,6 @@ internal class StartFragment : MeepleFragment<LoginViewModel>() {
             else {
                 progressBar.visibility = View.INVISIBLE
                 if (it is Request.Success) {
-                    saveToPref()
                     login(it.value)
                 } else if (it is Request.Failure) {
                     Toast.makeText(context, it.errorBody, Toast.LENGTH_SHORT).show()
@@ -135,22 +120,6 @@ internal class StartFragment : MeepleFragment<LoginViewModel>() {
                 ?.addToBackStack(null)
                 ?.commit()
         }
-    }
-
-    fun saveToPref() {
-
-        // TODO:!!!!!
-//        if (!havAcc) {
-//            val preferences =
-//                SecurePreferences(
-//                    context,
-//                    "my-preferences",
-//                    "SometopSecretKey1235",
-//                    true
-//                )
-//            preferences.put("userId", "@" + binding.UserNameEditText.text.toString())
-//            preferences.put("pass", binding.PasswordEditText.text.toString())
-//        }
     }
 
     fun login(boardGames: List<BoardGame>) {

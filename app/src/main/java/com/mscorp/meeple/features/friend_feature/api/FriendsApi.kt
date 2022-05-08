@@ -36,7 +36,7 @@ internal interface FriendsApi {
 }
 
 @Module
-abstract class FriendsProvideModule {
+class FriendsProvideModule {
 
     @Provides
     @Singleton

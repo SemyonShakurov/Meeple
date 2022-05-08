@@ -21,7 +21,6 @@ internal class EventsViewModel @Inject constructor(
         },
     )
 
-    // TODO: oh...
     fun addEvent(
         title: String,
         count: String,

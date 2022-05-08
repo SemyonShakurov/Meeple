@@ -1,5 +1,6 @@
 package com.mscorp.meeple.features.core_feature
 
+import android.content.SharedPreferences
 import com.mscorp.meeple.features.core_feature.api.AuthorizationApi
 import com.mscorp.meeple.model.User
 import io.reactivex.rxjava3.core.Single
@@ -7,14 +8,21 @@ import javax.inject.Inject
 
 internal class AuthorizationRepository @Inject constructor(
     private val authorizationApi: AuthorizationApi,
+    private val prefs: SharedPreferences,
 ) {
 
     fun login(
         nickname: String,
         password: String
     ): Single<User> {
-        // TODO: Go to shared prefs
-        return authorizationApi.login(email = nickname, password = password)
+        return authorizationApi
+            .login(email = nickname, password = password)
+            .doOnSuccess {
+                prefs.edit()
+                    .putString("login", nickname)
+                    .putString("password", password)
+                    .apply()
+            }
     }
 
     fun confirmEmail(
@@ -52,6 +60,10 @@ internal class AuthorizationRepository @Inject constructor(
         return authorizationApi.resetPassword(
             id = id,
             password = password,
-        )
+        ).doOnSuccess {
+            prefs.edit()
+                .clear()
+                .apply()
+        }
     }
 }

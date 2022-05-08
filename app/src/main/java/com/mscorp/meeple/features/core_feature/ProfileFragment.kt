@@ -76,11 +76,6 @@ internal class ProfileFragment : MeepleFragment<UserViewModel>() {
         }
 
         binding.imageViewSignOut.setOnClickListener {
-            // TODO!!!!!
-//            val preferences =
-//                SecurePreferences(context, "my-preferences", "SometopSecretKey1235", true)
-//            preferences.removeValue("userId")
-//            preferences.removeValue("pass")
             val intent = Intent(context, LoginActivity::class.java)
             startActivity(intent)
         }
